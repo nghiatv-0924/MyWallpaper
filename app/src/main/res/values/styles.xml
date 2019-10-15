@@ -12,11 +12,92 @@
         <item name="searchIcon">@drawable/ic_search_black_24dp</item>
         <item name="newIcon">@drawable/ic_trending_up_black_24dp</item>
         <item name="hotIcon">@drawable/ic_whatshot_black_24dp</item>
+
+        <!--<item name="dividerColor">@color/colorPrimaryDark_light</item>
+        <item name="menuIconColor">@android:color/black</item>
+        <item name="menuBackgroundColor">@color/menuBackground_light</item>
+        <item name="cardBackgroundColor">@color/cardBackgroundColor_light</item>
+        <item name="progressBarColor">@color/progressBarColor_light</item>
+        <item name="previewBackgroundColor">@color/previewBackgroundColor_light</item>-->
+        <item name="addIcon">@drawable/ic_add_black_24dp</item>
+        <item name="profileIcon">@drawable/ic_account_circle_black_24dp</item>
+        <item name="settingsIcon">@drawable/ic_settings_black_24dp</item>
+        <item name="cancelIcon">@drawable/ic_cancel_black_24dp</item>
+        <item name="collectionsIcon">@drawable/ic_collections_black_24dp</item>
+        <item name="autoWallpaperIcon">@drawable/ic_compare_black_24dp</item>
+        <item name="infoIcon">@drawable/ic_info_outline_black_24dp</item>
         <item name="sortIcon">@drawable/ic_sort_black_24dp</item>
         <item name="oldIcon">@drawable/ic_restore_black_24dp</item>
         <item name="mountainIcon">@drawable/ic_filter_hdr_black_24dp</item>
         <item name="heartIcon">@drawable/ic_favorite_black_24dp</item>
         <item name="starCircleIcon">@drawable/ic_stars_black_24dp</item>
+
+        <!--<item name="selectionControlsTheme">@style/selectionControlsTheme_light</item>
+
+        <item name="android:textCursorDrawable">@drawable/cursor</item>
+        <item name="android:textColor">@color/primary_text_color_selector_light</item>
+        <item name="android:textColorPrimary">@color/primary_text_color_selector_light</item>
+        <item name="android:textColorSecondary">@color/secondary_text_color_selector_light</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">@color/md_grey_500</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyleLight</item>
+        <item name="android:windowContentTransitions">true</item>
+
+        <item name="android:progressBarStyle">@style/ResplashProgressBarTheme_light</item>
+        <item name="android:windowBackground">@color/colorPrimary_light</item>
+        <item name="android:alertDialogTheme">@style/ResplashDialogTheme_light</item>
+
+        <item name="material_drawer_background">@color/colorPrimary_light</item>
+        <item name="material_drawer_selected">@color/colorPrimaryDark_light</item>
+
+        <item name="resplashLogo">@drawable/splash_black</item>
+        <item name="searchIcon">@drawable/ic_search_black_24dp</item>
+        <item name="sortIcon">@drawable/ic_sort_black_24dp</item>
+        <item name="shareIcon">@drawable/ic_share_black_24dp</item>
+        <item name="browserIcon">@drawable/ic_earth_black_24dp</item>
+        <item name="browserSmallIcon">@drawable/baseline_public_black_18</item>
+        <item name="newIcon">@drawable/ic_trending_up_black_24dp</item>
+        <item name="hotIcon">@drawable/ic_whatshot_black_24dp</item>
+        <item name="collectionsIcon">@drawable/ic_collections_black_24dp</item>
+        <item name="autoWallpaperIcon">@drawable/baseline_compare_black_24</item>
+        <item name="heartIcon">@drawable/ic_favorite_black_24dp</item>
+        <item name="settingsIcon">@drawable/ic_settings_black_24dp</item>
+        <item name="infoIcon">@drawable/ic_info_outline_black_24dp</item>
+        <item name="profileIcon">@drawable/ic_account_circle_black_24dp</item>
+        <item name="cancelIcon">@drawable/ic_cancel_black_24dp</item>
+        <item name="closeIcon">@drawable/ic_close_black_24dp</item>
+        <item name="addIcon">@drawable/ic_add_black_24dp</item>
+        <item name="oldIcon">@drawable/ic_restore_black_24dp</item>
+        <item name="mountainIcon">@drawable/ic_filter_hdr_black_24dp</item>
+        <item name="starCircleIcon">@drawable/ic_stars_black_24dp</item>
+        <item name="locationIcon">@drawable/ic_location_on_black_24dp</item>
+        <item name="locationSmallIcon">@drawable/baseline_location_on_black_18</item>
+        <item name="calendarIcon">@drawable/ic_date_range_black_24dp</item>
+        <item name="downloadIcon">@drawable/ic_file_download_black_24dp</item>
+        <item name="paletteIcon">@drawable/ic_color_lens_black_24dp</item>
+        <item name="viewsIcon">@drawable/ic_remove_red_eye_black_24dp</item>
+        <item name="dimensionsIcon">@drawable/ic_straighten_black_24dp</item>
+        <item name="imageIcon">@drawable/ic_image_black_24dp</item>
+        <item name="cameraIcon">@drawable/ic_camera_alt_black_24dp</item>
+        <item name="exposureIcon">@drawable/ic_timelapse_black_24dp</item>
+        <item name="apertureIcon">@drawable/ic_camera_black_24dp</item>
+        <item name="isoIcon">@drawable/ic_iso_black_24dp</item>
+        <item name="focalLengthIcon">@drawable/ic_all_out_black_24dp</item>
+        <item name="introIcon">@drawable/ic_chrome_reader_mode_black_24dp</item>
+        <item name="gitHubIcon">@drawable/ic_github_circle_black_24dp</item>
+        <item name="starIcon">@drawable/ic_star_black_24dp</item>
+        <item name="donateIcon">@drawable/ic_gift_black_24dp</item>
+        <item name="bugReportIcon">@drawable/ic_bug_report_black_24dp</item>
+        <item name="instagramIcon">@drawable/ic_instagram_black_24dp</item>
+        <item name="keyIcon">@drawable/ic_key_variant_black_24dp</item>
+        <item name="emailIcon">@drawable/ic_email_black_24dp</item>
+        <item name="exploreIcon">@drawable/ic_explore_black_24dp</item>
+        <item name="accountCardIcon">@drawable/ic_account_card_details_black_24dp</item>
+        <item name="quoteIcon">@drawable/ic_format_quote_black_24dp</item>
+        <item name="collectionSavedIcon">@drawable/ic_bookmark_black_24dp</item>
+        <item name="editIcon">@drawable/ic_mode_edit_black_24dp</item>
+        <item name="lockIcon">@drawable/baseline_lock_black_18</item>-->
     </style>
 
     <style name="SplashActivityTheme" parent="Theme.Primary.Base.Light">

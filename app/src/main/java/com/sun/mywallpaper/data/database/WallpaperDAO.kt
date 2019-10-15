@@ -7,7 +7,7 @@ import com.sun.mywallpaper.data.model.Wallpaper
 interface WallpaperDAO {
 
     @Query("SELECT * FROM wallpaper_table")
-    fun getAllWallpapers(): List<Wallpaper>
+    fun getAllWallpapers(): List<Wallpaper>?
 
     @Query("DELETE FROM wallpaper_table")
     fun deleteAllWallpapers()

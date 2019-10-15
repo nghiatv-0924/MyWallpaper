@@ -3,7 +3,6 @@ package com.sun.mywallpaper.data.api
 import com.sun.mywallpaper.data.model.Me
 import com.sun.mywallpaper.data.model.User
 import kotlinx.coroutines.Deferred
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.PUT
 import retrofit2.http.Path

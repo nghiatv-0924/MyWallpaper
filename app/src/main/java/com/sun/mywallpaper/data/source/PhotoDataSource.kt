@@ -1,15 +1,28 @@
 package com.sun.mywallpaper.data.source
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Create repository
 import com.sun.mywallpaper.coroutine.CoroutineResult
 import com.sun.mywallpaper.data.api.response.LikePhotoResponse
 import com.sun.mywallpaper.data.model.Photo
 import com.sun.mywallpaper.data.model.PhotoStats
 import okhttp3.ResponseBody
 
+<<<<<<< HEAD
+=======
+>>>>>>> Create repository
+=======
+>>>>>>> Create repository
 interface PhotoDataSource {
 
     interface Remote {
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Create repository
         suspend fun getPhotos(
             page: Int,
             perPage: Int,
@@ -76,5 +89,11 @@ interface PhotoDataSource {
         ): CoroutineResult<List<Photo>>
 
         suspend fun reportDownload(id: String): CoroutineResult<ResponseBody>
+<<<<<<< HEAD
+=======
+        fun getPhotos() : CoroutineResult
+>>>>>>> Create repository
+=======
+>>>>>>> Create repository
     }
 }

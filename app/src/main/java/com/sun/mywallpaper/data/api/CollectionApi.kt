@@ -57,7 +57,7 @@ interface CollectionApi {
         @Path(PATH_ID) id: Int,
         @Query(QUERY_TITLE) title: String,
         @Query(QUERY_DESCRIPTION) description: String,
-        @Query(QUERY_PRIVATE) privateX: Boolean
+        @Query(QUERY_PRIVATE) isPrivate: Boolean
     ): Deferred<Collection>
 
     @DELETE("$PATH_COLLECTIONS/{$PATH_ID}")
