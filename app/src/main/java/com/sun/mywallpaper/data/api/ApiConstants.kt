@@ -1,13 +1,5 @@
 package com.sun.mywallpaper.data.api
 
-const val UNSPLASH_API_BASE_URL = "https://api.unsplash.com/"
-const val UNSPLASH_URL = "https://unsplash.com/"
-const val UNSPLASH_UPLOAD_URL = "https://unsplash.com/submit"
-const val UNSPLASH_JOIN_URL = "https://unsplash.com/join"
-const val UNSPLASH_LOGIN_CALLBACK = "https://image-editor/unsplash-auth-callback"
-const val UNSPLASH_UTM_PARAMETERS =
-    "?utm_source=resplash&utm_medium=referral&utm_campaign=api-credit"
-
 internal const val PATH_OAUTH = "oauth"
 internal const val PATH_TOKEN = "token"
 internal const val PATH_COLLECTIONS = "collections"
@@ -58,3 +50,13 @@ internal const val QUERY_URL = "url"
 internal const val QUERY_LOCATION = "location"
 internal const val QUERY_BIO = "bio"
 internal const val QUERY_INSTAGRAM_USERNAME = "instagram_username"
+
+object ApiConstants {
+    const val UNSPLASH_API_BASE_URL = "https://api.unsplash.com/"
+    const val UNSPLASH_URL = "https://unsplash.com/"
+    const val UNSPLASH_UPLOAD_URL = "https://unsplash.com/submit"
+    const val UNSPLASH_JOIN_URL = "https://unsplash.com/join"
+    const val UNSPLASH_LOGIN_CALLBACK = "https://image-editor/unsplash-auth-callback"
+    const val UNSPLASH_UTM_PARAMETERS =
+        "?utm_source=resplash&utm_medium=referral&utm_campaign=api-credit"
+}
