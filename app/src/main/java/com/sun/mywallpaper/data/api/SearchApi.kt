@@ -10,7 +10,7 @@ import retrofit2.http.Query
 interface SearchApi {
 
     @GET("$PATH_SEARCH/$PATH_PHOTOS")
-    fun searchPhotos(
+    fun searchPhotosAsync(
         @Query(QUERY_QUERY) query: String,
         @Query(QUERY_PAGE) page: Int,
         @Query(QUERY_PER_PAGE) perPage: Int,
@@ -19,14 +19,14 @@ interface SearchApi {
     ): Deferred<SearchPhotosResponse>
 
     @GET("$PATH_SEARCH/$PATH_USERS")
-    fun searchUsers(
+    fun searchUsersAsync(
         @Query(QUERY_QUERY) query: String,
         @Query(QUERY_PAGE) page: Int,
         @Query(QUERY_PER_PAGE) perPage: Int
     ): Deferred<SearchUsersResponse>
 
     @GET("$PATH_SEARCH/$PATH_COLLECTIONS")
-    fun searchCollections(
+    fun searchCollectionsAsync(
         @Query(QUERY_QUERY) query: String,
         @Query(QUERY_PAGE) page: Int,
         @Query(QUERY_PER_PAGE) perPage: Int
