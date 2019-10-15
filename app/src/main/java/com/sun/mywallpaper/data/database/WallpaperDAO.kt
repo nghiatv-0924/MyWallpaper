@@ -1,6 +1,5 @@
 package com.sun.mywallpaper.data.database
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.sun.mywallpaper.data.model.Wallpaper
 
@@ -8,7 +7,7 @@ import com.sun.mywallpaper.data.model.Wallpaper
 interface WallpaperDAO {
 
     @Query("SELECT * FROM wallpaper_table")
-    fun getAllWallpapers(): LiveData<List<Wallpaper>>
+    fun getAllWallpapers(): List<Wallpaper>
 
     @Query("DELETE FROM wallpaper_table")
     fun deleteAllWallpapers()
