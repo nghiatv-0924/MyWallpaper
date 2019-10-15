@@ -1,11 +1,39 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="Theme.Primary.Base.Light" parent="MaterialDrawerTheme.Light">
+        <item name="colorPrimary">@color/colorPrimaryLight</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkLight</item>
+        <item name="colorAccent">@color/colorAccentLight</item>
+        <item name="primaryTextColor">@color/colorTextLight</item>
+        <item name="secondaryTextColor">@color/colorTextSecondaryLight</item>
+        <item name="fabColor">@color/colorAccentLight</item>
+        <item name="toolbarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="actionBarTheme">@style/ActionBarThemeLight</item>
+        <item name="searchIcon">@drawable/ic_search_black_24dp</item>
+        <item name="newIcon">@drawable/ic_trending_up_black_24dp</item>
+        <item name="hotIcon">@drawable/ic_whatshot_black_24dp</item>
+        <item name="sortIcon">@drawable/ic_sort_black_24dp</item>
+        <item name="oldIcon">@drawable/ic_restore_black_24dp</item>
+        <item name="mountainIcon">@drawable/ic_filter_hdr_black_24dp</item>
+        <item name="heartIcon">@drawable/ic_favorite_black_24dp</item>
+        <item name="starCircleIcon">@drawable/ic_stars_black_24dp</item>
+    </style>
+
+    <style name="SplashActivityTheme" parent="Theme.Primary.Base.Light">
+        <item name="android:windowBackground">@drawable/background_splash</item>
+    </style>
+
+    <style name="ToolbarTheme">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:theme">?attr/actionBarTheme</item>
+        <item name="titleTextColor">?attr/primaryTextColor</item>
+        <item name="popupTheme">?attr/toolbarPopupTheme</item>
+    </style>
+
+    <style name="ActionBarThemeLight" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:textColorSecondary">@color/colorTextLight</item>
     </style>
 
 </resources>
