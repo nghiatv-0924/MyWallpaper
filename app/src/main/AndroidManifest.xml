@@ -4,6 +4,7 @@
     package="com.sun.mywallpaper">
 
     <application
+        android:name=".MainApplication"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
