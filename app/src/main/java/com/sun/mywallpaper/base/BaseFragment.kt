@@ -18,7 +18,7 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : Fragment
 
     protected abstract val layoutResource: Int
     protected abstract val viewModel: VM
-    private lateinit var viewDataBinding: VB
+    protected lateinit var viewDataBinding: VB
     private lateinit var navigationManagerInner: NavigationManager
     private lateinit var fragmentInteractionInner: FragmentInteractionListener
 

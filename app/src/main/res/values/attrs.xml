@@ -27,5 +27,6 @@
         <attr name="mountainIcon" format="reference"/>
         <attr name="heartIcon" format="reference"/>
         <attr name="starCircleIcon" format="reference"/>
+        <attr name="lockIcon" format="reference"/>
     </declare-styleable>
 </resources>

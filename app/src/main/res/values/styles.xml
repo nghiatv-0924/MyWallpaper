@@ -17,6 +17,7 @@
         <item name="mountainIcon">@drawable/ic_filter_hdr_black_24dp</item>
         <item name="heartIcon">@drawable/ic_favorite_black_24dp</item>
         <item name="starCircleIcon">@drawable/ic_stars_black_24dp</item>
+        <item name="lockIcon">@drawable/ic_lock_black_18dp</item>
     </style>
 
     <style name="SplashActivityTheme" parent="Theme.Primary.Base.Light">
