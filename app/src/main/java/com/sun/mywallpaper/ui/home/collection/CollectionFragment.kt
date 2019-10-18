@@ -13,6 +13,7 @@ import com.sun.mywallpaper.base.OnRecyclerItemClickListener
 import com.sun.mywallpaper.data.model.Collection
 import com.sun.mywallpaper.databinding.FragmentCollectionBinding
 import com.sun.mywallpaper.di.KoinNames
+import com.sun.mywallpaper.ui.collectiondetail.CollectionDetailFragment
 import com.sun.mywallpaper.util.Constants
 import kotlinx.android.synthetic.main.fragment_collection.*
 import org.koin.android.ext.android.get
@@ -78,6 +79,7 @@ class CollectionFragment : BaseFragment<FragmentCollectionBinding, CollectionVie
     }
 
     override fun showItemDetail(item: Collection) {
+        getNavigationManager().open(CollectionDetailFragment.newInstance(item))
     }
 
     companion object {

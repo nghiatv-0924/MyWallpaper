@@ -18,4 +18,8 @@ val componentModule = module {
     single(named(KoinNames.COLLECTION_ADAPTER)) {
         CollectionAdapter()
     }
+
+    single(named(KoinNames.COLLECTION_DETAIL_ADAPTER)) {
+        PhotoAdapter()
+    }
 }

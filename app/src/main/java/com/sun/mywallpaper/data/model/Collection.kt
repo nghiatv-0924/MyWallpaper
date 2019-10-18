@@ -1,7 +1,10 @@
 package com.sun.mywallpaper.data.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Collection(
     @SerializedName(JSON_KEY_ID) val id: Int,
     @SerializedName(JSON_KEY_TITLE) val title: String,
@@ -15,13 +18,15 @@ data class Collection(
     @SerializedName(JSON_KEY_COVER_PHOTO) val coverPhoto: Photo,
     @SerializedName(JSON_KEY_USER) val user: User,
     @SerializedName(JSON_KEY_LINKS) val links: CollectionLinks
-) {
+) : Parcelable {
+
+    @Parcelize
     data class CollectionLinks(
         @SerializedName(JSON_KEY_LINKS_SELF) val self: String,
         @SerializedName(JSON_KEY_LINKS_HTML) val html: String,
         @SerializedName(JSON_KEY_LINKS_PHOTOS) val photos: String,
         @SerializedName(JSON_KEY_LINKS_RELATED) val related: String
-    )
+    ) : Parcelable
 
     companion object {
         private const val JSON_KEY_ID = "id"

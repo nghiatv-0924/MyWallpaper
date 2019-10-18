@@ -18,6 +18,13 @@
         <item name="heartIcon">@drawable/ic_favorite_black_24dp</item>
         <item name="starCircleIcon">@drawable/ic_stars_black_24dp</item>
         <item name="lockIcon">@drawable/ic_lock_black_18dp</item>
+        <item name="editIcon">@drawable/ic_mode_edit_black_24dp</item>
+        <item name="browserIcon">@drawable/ic_public_black_24dp</item>
+        <item name="shareIcon">@drawable/ic_share_black_24dp</item>
+        <item name="errorIcon">@drawable/ic_error_outline_black_24dp</item>
+        <item name="cancelIcon">@drawable/ic_cancel_black_24dp</item>
+        <item name="collectionsIcon">@drawable/ic_collections_black_24dp</item>
+        <item name="backIcon">@drawable/ic_arrow_back_black_24dp</item>
     </style>
 
     <style name="SplashActivityTheme" parent="Theme.Primary.Base.Light">

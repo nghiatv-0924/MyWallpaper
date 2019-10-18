@@ -1,7 +1,10 @@
 package com.sun.mywallpaper.data.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class User(
     @SerializedName(JSON_KEY_ID) val id: String,
     @SerializedName(JSON_KEY_UPDATED_AT) val updatedAt: String,
@@ -21,30 +24,34 @@ data class User(
     @SerializedName(JSON_KEY_FOLLOWERS_COUNT) val followersCount: Int,
     @SerializedName(JSON_KEY_FOLLOWING_COUNT) val following_count: Int,
     @SerializedName(JSON_KEY_DOWNLOADS) val downloads: Int,
-    @SerializedName(JSON_KEY_PROFILE_IMAGE) val profile_image: ProfileImage,
+    @SerializedName(JSON_KEY_PROFILE_IMAGE) val profileImage: ProfileImage,
     @SerializedName(JSON_KEY_BADGE) val badge: Badge,
     @SerializedName(JSON_KEY_LINKS) val links: UserLinks
-) {
+) : Parcelable {
+
+    @Parcelize
     data class ProfileImage(
         @SerializedName(JSON_KEY_PROFILE_IMAGE_SMALL) val small: String,
         @SerializedName(JSON_KEY_PROFILE_IMAGE_MEDIUM) val medium: String,
         @SerializedName(JSON_KEY_PROFILE_IMAGE_LARGE) val large: String
-    )
+    ) : Parcelable
 
+    @Parcelize
     data class Badge(
         @SerializedName(JSON_KEY_BADGE_TITLE) val title: String,
         @SerializedName(JSON_KEY_BADGE_PRIMARY) val primary: Boolean,
         @SerializedName(JSON_KEY_BADGE_SLUG) val slug: String,
         @SerializedName(JSON_KEY_BADGE_LINK) val link: String
-    )
+    ) : Parcelable
 
+    @Parcelize
     data class UserLinks(
         @SerializedName(JSON_KEY_LINKS_SELF) val self: String,
         @SerializedName(JSON_KEY_LINKS_HTML) val html: String,
         @SerializedName(JSON_KEY_LINKS_PHOTOS) val photos: String,
         @SerializedName(JSON_KEY_LINKS_LIKES) val likes: String,
         @SerializedName(JSON_KEY_LINKS_PORTFOLIO) val portfolio: String
-    )
+    ) : Parcelable
 
     companion object {
         private const val JSON_KEY_ID = "id"

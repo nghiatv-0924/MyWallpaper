@@ -29,7 +29,7 @@ abstract class BaseRecyclerAdapter<T, VH : BaseRecyclerAdapter.ViewHolder<T>>(
         itemView: View,
         private val listener: OnRecyclerItemClickListener<T>
     ) : RecyclerView.ViewHolder(itemView) {
-        
+
         private var item: T? = null
 
         init {

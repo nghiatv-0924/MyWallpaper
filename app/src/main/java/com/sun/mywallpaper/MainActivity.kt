@@ -5,11 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.sun.mywallpaper.base.BaseFragment
 import com.sun.mywallpaper.base.HasNavigationManager
 import com.sun.mywallpaper.base.NavigationManager
+import com.sun.mywallpaper.ui.collectiondetail.CollectionDetailFragment
 import com.sun.mywallpaper.ui.home.HomeFragment
-import kotlinx.android.synthetic.main.fragment_home.*
 
 class MainActivity : AppCompatActivity(),
     HomeFragment.OnHomeFragmentInteractionListener,
+    CollectionDetailFragment.OnCollectionDetailFragmentInteractionListener,
     HasNavigationManager {
 
     private lateinit var navigationManager: NavigationManager
@@ -20,7 +21,6 @@ class MainActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         savedInstanceState ?: navigationManager.openAsRoot(HomeFragment.newInstance())
-        setSupportActionBar(toolBar)
     }
 
     override fun setCurrentFragment(fragment: BaseFragment<*, *>) {
