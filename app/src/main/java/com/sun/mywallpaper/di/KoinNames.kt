@@ -29,4 +29,8 @@ object KoinNames {
     const val USER_REMOTE_DATA_SOURCE = "name_user_remote_data_source"
     const val WALLPAPER_LOCAL_DATA_SOURCE = "name_wallpaper_local_data_source"
     const val APP_DATABASE = "name_app_database"
+
+    const val NEW_ADAPTER = "name_new_adapter"
+    const val FEATURED_ADAPTER = "name_featured_adapter"
+    const val COLLECTION_ADAPTER = "name_collection_adapter"
 }

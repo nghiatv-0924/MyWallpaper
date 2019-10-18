@@ -3,7 +3,7 @@ package com.sun.mywallpaper.data.api
 class AuthManager {
 
     fun isAuthorized(): Boolean {
-        return true
+        return false
     }
 
     fun getAccessToken(): String = ""
