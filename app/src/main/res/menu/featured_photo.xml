@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/actionSort"
+        android:icon="?attr/sortIcon"
+        android:title="@string/menu_sort"
+        app:showAsAction="ifRoom">
+
+        <menu>
+            <group android:checkableBehavior="none">
+                <item
+                    android:id="@+id/menuItemFeaturedLatest"
+                    android:icon="?attr/newIcon"
+                    android:title="@string/menu_item_latest" />
+                <item
+                    android:id="@+id/menuItemFeaturedOldest"
+                    android:icon="?attr/oldIcon"
+                    android:title="@string/menu_item_oldest" />
+                <item
+                    android:id="@+id/menuItemFeaturedPopular"
+                    android:icon="?attr/hotIcon"
+                    android:title="@string/menu_item_popular" />
+            </group>
+        </menu>
+
+    </item>
+
+</menu>
