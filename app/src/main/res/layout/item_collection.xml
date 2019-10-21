@@ -3,18 +3,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_marginBottom="@dimen/dp_8"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/dp_8">
 
     <ImageView
         android:id="@+id/imageCollection"
         android:layout_width="0dp"
-        android:layout_height="@dimen/dp_250"
+        android:layout_height="@dimen/dp_280"
         android:adjustViewBounds="true"
         android:background="?attr/colorPrimary"
         android:contentDescription="@string/drawer_collections"
         android:scaleType="centerCrop"
-        android:transitionName="imageCover"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -42,6 +41,7 @@
         android:lines="1"
         android:textColor="?attr/primaryTextColor"
         android:textSize="@dimen/sp_16"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/imageCollectionPrivate"
         app:layout_constraintTop_toBottomOf="@id/imageCollection" />
 
@@ -53,7 +53,7 @@
         android:layout_marginTop="@dimen/dp_6"
         android:ellipsize="end"
         android:lines="1"
-        android:textColor="?attr/primaryTextColor"
+        android:textColor="?attr/secondaryTextColor"
         android:textSize="@dimen/sp_14"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textCollectionName" />

@@ -8,12 +8,11 @@
     <ImageView
         android:id="@+id/imagePhoto"
         android:layout_width="0dp"
-        android:layout_height="@dimen/dp_250"
+        android:layout_height="@dimen/dp_280"
         android:adjustViewBounds="true"
         android:background="?attr/colorPrimary"
         android:contentDescription="@string/drawer_new"
-        android:scaleType="fitXY"
-        android:transitionName="photoScale"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

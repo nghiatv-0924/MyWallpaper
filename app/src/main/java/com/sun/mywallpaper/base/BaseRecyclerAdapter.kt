@@ -8,6 +8,8 @@ abstract class BaseRecyclerAdapter<T, VH : BaseRecyclerAdapter.ViewHolder<T>>(
     private val items: MutableList<T> = mutableListOf()
 ) : RecyclerView.Adapter<VH>() {
 
+    protected lateinit var listener: OnRecyclerItemClickListener<T>
+
     override fun getItemCount() = items.size
 
     override fun onBindViewHolder(holder: VH, position: Int) = holder.bindData(items[position])
@@ -19,8 +21,29 @@ abstract class BaseRecyclerAdapter<T, VH : BaseRecyclerAdapter.ViewHolder<T>>(
             dispatchUpdatesTo(this@BaseRecyclerAdapter)
         }
 
-    abstract class ViewHolder<T>(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        abstract fun bindData(item: T)
+    fun setOnRecyclerItemClickListener(listener: OnRecyclerItemClickListener<T>) {
+        this.listener = listener
+    }
+
+    abstract class ViewHolder<T>(
+        itemView: View,
+        private val listener: OnRecyclerItemClickListener<T>
+        ) : RecyclerView.ViewHolder(itemView) {
+        private var item: T? = null
+
+        init {
+            itemView.setOnClickListener {
+                item?.let { onHandleItemClick(it) }
+            }
+        }
+
+        open fun bindData(item: T) {
+            this.item = item
+        }
+
+        open fun onHandleItemClick(item: T) {
+            listener.showItemDetail(item)
+        }
     }
 
     class Callback<T>(
