@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="userDetailViewModel"
+            type="com.sun.mywallpaper.ui.userdetail.UserDetailViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/activity_user"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Light">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_scrollFlags="scroll|snap">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolBar"
+                    style="@style/ToolbarTheme"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageUser"
+                    android:layout_width="@dimen/dp_60"
+                    android:layout_height="@dimen/dp_60"
+                    android:layout_margin="@dimen/dp_16"
+                    android:contentDescription="@string/app_name"
+                    app:layout_constraintBottom_toTopOf="@id/guideline"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/toolBar" />
+
+                <TextView
+                    android:id="@+id/textUserLocation"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_marginEnd="@dimen/dp_16"
+                    android:layout_marginBottom="@dimen/dp_8"
+                    android:drawableStart="?attr/locationIcon"
+                    android:paddingStart="@dimen/dp_6"
+                    android:paddingEnd="@dimen/dp_6"
+                    android:text="@string/no_information"
+                    android:textColor="?attr/primaryTextColor"
+                    android:textSize="@dimen/sp_16"
+                    app:layout_constraintBottom_toTopOf="@id/textUserPortfolioUrl"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/imageUser"
+                    app:layout_constraintTop_toBottomOf="@id/toolBar"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <TextView
+                    android:id="@+id/textUserPortfolioUrl"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_16"
+                    android:autoLink="web"
+                    android:drawableStart="?attr/browserIcon"
+                    android:paddingStart="@dimen/dp_6"
+                    android:paddingEnd="@dimen/dp_6"
+                    android:text="@string/no_information"
+                    android:textColor="?attr/primaryTextColor"
+                    android:textColorLink="?attr/primaryTextColor"
+                    android:textSize="@dimen/sp_16"
+                    app:layout_constraintBottom_toTopOf="@id/guideline"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/imageUser"
+                    app:layout_constraintTop_toBottomOf="@id/textUserLocation" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.6" />
+
+                <TextView
+                    android:id="@+id/textUserBio"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_16"
+                    android:textColor="?attr/primaryTextColor"
+                    android:textSize="@dimen/sp_16"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/guideline" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabIndicatorColor="?attr/primaryTextColor"
+                app:tabMode="fixed"
+                app:tabSelectedTextColor="?attr/primaryTextColor"
+                app:tabTextColor="?attr/secondaryTextColor" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

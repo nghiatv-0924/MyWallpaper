@@ -33,5 +33,6 @@
         <attr name="shareIcon" format="reference"/>
         <attr name="errorIcon" format="reference"/>
         <attr name="backIcon" format="reference"/>
+        <attr name="locationIcon" format="reference"/>
     </declare-styleable>
 </resources>

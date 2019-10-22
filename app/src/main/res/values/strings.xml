@@ -23,4 +23,6 @@
     <string name="edit_collection">Edit collection</string>
     <string name="action_share">Share</string>
     <string name="action_view_on_unsplash">Open in browser</string>
+
+    <string name="no_information">No information</string>
 </resources>

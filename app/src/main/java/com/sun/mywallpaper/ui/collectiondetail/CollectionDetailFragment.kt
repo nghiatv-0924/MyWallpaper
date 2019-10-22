@@ -19,8 +19,10 @@ import com.sun.mywallpaper.data.model.Collection
 import com.sun.mywallpaper.data.model.Photo
 import com.sun.mywallpaper.databinding.FragmentCollectionDetailBinding
 import com.sun.mywallpaper.di.KoinNames
+import com.sun.mywallpaper.ui.userdetail.UserDetailFragment
 import kotlinx.android.synthetic.main.fragment_collection_detail.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_user_detail.*
 import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
@@ -49,7 +51,6 @@ class CollectionDetailFragment :
         }
     }
 
-    @SuppressLint("ResourceType")
     override fun initComponents() {
         (activity as AppCompatActivity).apply {
             setSupportActionBar(toolbar)
@@ -58,12 +59,21 @@ class CollectionDetailFragment :
         }
         setHasOptionsMenu(true)
 
-        Glide.with(this)
-            .load(collection?.user?.profileImage?.medium)
-            .apply(RequestOptions.circleCropTransform())
-            .into(imageProfileCollection)
-        textCollectionDescription.text = collection?.description
-        textUserCollection.text = collection?.user?.name
+        collection?.let {
+            Glide.with(this)
+                .load(it.user.profileImage.medium)
+                .apply(RequestOptions.circleCropTransform())
+                .into(imageProfileCollection)
+            textCollectionDescription.text = it.description
+            textUserCollection.text = it.user.name
+
+            imageProfileCollection.setOnClickListener { _ ->
+                getNavigationManager().open(UserDetailFragment.newInstance(it.user))
+            }
+            textUserCollection.setOnClickListener { _ ->
+                getNavigationManager().open(UserDetailFragment.newInstance(it.user))
+            }
+        }
 
         recyclerViewCollectionDetail.apply {
             layoutManager = LinearLayoutManager(context)
@@ -114,13 +124,13 @@ class CollectionDetailFragment :
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-         when(item.itemId) {
+        when (item.itemId) {
             android.R.id.home -> onBackPressed()
         }
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onBackPressed()= getNavigationManager().navigateBack()
+    override fun onBackPressed() = getNavigationManager().navigateBack()
 
     override fun showItemDetail(item: Photo) {
     }
