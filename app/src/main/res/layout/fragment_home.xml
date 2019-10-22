@@ -54,7 +54,8 @@
             android:src="@drawable/ic_file_upload_white_24dp"
             app:backgroundTint="?attr/fabColor"
             app:fabSize="normal"
-            app:layout_anchorGravity="bottom|end" />
+            app:layout_anchorGravity="bottom|end"
+            app:tint="@color/colorPrimaryLight" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
