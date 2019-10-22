@@ -1,7 +1,10 @@
 package com.sun.mywallpaper.data.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Photo(
     @SerializedName(JSON_KEY_ID) val id: String,
     @SerializedName(JSON_KEY_CREATED_AT) val createdAt: String,
@@ -21,8 +24,9 @@ data class Photo(
     @SerializedName(JSON_KEY_LINKS) val links: PhotoLinks,
     @SerializedName(JSON_KEY_USER) val user: User,
     @SerializedName(JSON_KEY_STORY) val story: Story
-) {
+) : Parcelable {
 
+    @Parcelize
     data class Exif(
         @SerializedName(JSON_KEY_EXIF_MAKE) val make: String,
         @SerializedName(JSON_KEY_EXIF_MODEL) val model: String,
@@ -30,28 +34,31 @@ data class Photo(
         @SerializedName(JSON_KEY_EXIF_APERTURE) val aperture: String,
         @SerializedName(JSON_KEY_EXIF_FOCAL_LENGTH) val focalLength: String,
         @SerializedName(JSON_KEY_EXIF_ISO) val iso: Int
-    )
+    ) : Parcelable
 
+    @Parcelize
     data class PhotoUrls(
         @SerializedName(JSON_KEY_URLS_RAW) val raw: String,
         @SerializedName(JSON_KEY_URLS_FULL) val full: String,
         @SerializedName(JSON_KEY_URLS_REGULAR) val regular: String,
         @SerializedName(JSON_KEY_URLS_SMALL) val small: String,
         @SerializedName(JSON_KEY_URLS_THUMB) val thumb: String
-    )
+    ) : Parcelable
 
+    @Parcelize
     data class PhotoLinks(
         @SerializedName(JSON_KEY_LINKS_SELF) val self: String,
         @SerializedName(JSON_KEY_LINKS_HTML) val html: String,
         @SerializedName(JSON_KEY_LINKS_DOWNLOAD) val download: String,
         @SerializedName(JSON_KEY_LINKS_DOWNLOAD_LOCATION) val downloadLocation: String
-    )
+    ) : Parcelable
 
+    @Parcelize
     data class Story(
         @SerializedName(JSON_KEY_STORY_TITLE) val title: String,
         @SerializedName(JSON_KEY_STORY_DESCRIPTION) val description: String,
         @SerializedName(JSON_KEY_STORY_IMAGE_URL) val image_url: String
-    )
+    ) : Parcelable
 
     companion object {
         private const val JSON_KEY_ID = "id"

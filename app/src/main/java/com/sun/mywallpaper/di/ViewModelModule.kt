@@ -1,5 +1,6 @@
 package com.sun.mywallpaper.di
 
+import com.sun.mywallpaper.ui.collectiondetail.CollectionDetailViewModel
 import com.sun.mywallpaper.ui.home.HomeViewModel
 import com.sun.mywallpaper.ui.home.collection.CollectionViewModel
 import com.sun.mywallpaper.ui.home.featuredphoto.FeaturedViewModel
@@ -16,4 +17,6 @@ val viewModelModule = module {
     viewModel { FeaturedViewModel(photoRepository = get(named(KoinNames.PHOTO_REPOSITORY))) }
 
     viewModel { CollectionViewModel(collectionRepository = get(named(KoinNames.COLLECTION_REPOSITORY))) }
+
+    viewModel { CollectionDetailViewModel(photoRepository = get(named(KoinNames.PHOTO_REPOSITORY))) }
 }

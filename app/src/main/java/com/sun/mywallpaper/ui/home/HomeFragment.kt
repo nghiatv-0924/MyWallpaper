@@ -35,12 +35,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
     override fun initComponents() {
+        (activity as AppCompatActivity).apply {
+            setSupportActionBar(toolBar)
+            supportActionBar?.setTitle(R.string.app_name)
+        }
+        setHasOptionsMenu(true)
+
         activity?.let { activity ->
             (activity as AppCompatActivity).setSupportActionBar(toolBar)
             activity.setTitle(getString(R.string.app_name))

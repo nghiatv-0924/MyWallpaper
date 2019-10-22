@@ -28,5 +28,10 @@
         <attr name="heartIcon" format="reference"/>
         <attr name="starCircleIcon" format="reference"/>
         <attr name="lockIcon" format="reference"/>
+        <attr name="editIcon" format="reference"/>
+        <attr name="browserIcon" format="reference"/>
+        <attr name="shareIcon" format="reference"/>
+        <attr name="errorIcon" format="reference"/>
+        <attr name="backIcon" format="reference"/>
     </declare-styleable>
 </resources>
