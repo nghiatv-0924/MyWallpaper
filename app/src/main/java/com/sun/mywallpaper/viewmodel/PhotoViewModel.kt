@@ -16,14 +16,22 @@ class PhotoViewModel(private val photoRepository: PhotoRepository) : BaseViewMod
         get() = _featuredPhotos
     val collectionPhotos: LiveData<List<Photo>>
         get() = _collectionPhotos
+    val userPhotos: LiveData<List<Photo>>
+        get() = _userPhotos
+    val userLikes: LiveData<List<Photo>>
+        get() = _userLikes
 
     private val _newPhotos = MutableLiveData<List<Photo>>()
     private val _featuredPhotos = MutableLiveData<List<Photo>>()
     private val _collectionPhotos = MutableLiveData<List<Photo>>()
+    private val _userPhotos = MutableLiveData<List<Photo>>()
+    private val _userLikes = MutableLiveData<List<Photo>>()
 
     private val newPhotoList = mutableListOf<Photo>()
     private val featuredPhotoList = mutableListOf<Photo>()
     private val collectionPhotoList = mutableListOf<Photo>()
+    private val userPhotoList = mutableListOf<Photo>()
+    private val userLikeList = mutableListOf<Photo>()
 
     override fun create() {
     }
@@ -74,5 +82,37 @@ class PhotoViewModel(private val photoRepository: PhotoRepository) : BaseViewMod
             }
         }
         _collectionPhotos.value = collectionPhotoList
+    }
+
+    fun refreshUserPhotos(userName: String, page: Int, perPage: Int, orderBy: String) {
+        userPhotoList.clear()
+        getUserPhotos(userName, page, perPage, orderBy)
+    }
+
+    fun getUserPhotos(userName: String, page: Int, perPage: Int, orderBy: String) = launch {
+        when (val result = photoRepository.getUserPhotos(userName, page, perPage, orderBy)) {
+            is CoroutineResult.Success -> userPhotoList.addAll(result.data)
+            is CoroutineResult.Error -> {
+                messageNotification.value = result.throwable.message.toString()
+                userPhotoList.addAll(emptyList())
+            }
+        }
+        _userPhotos.value = userPhotoList
+    }
+
+    fun refreshUserLikes(userName: String, page: Int, perPage: Int, orderBy: String) {
+        userLikeList.clear()
+        getUserLikes(userName, page, perPage, orderBy)
+    }
+
+    fun getUserLikes(userName: String, page: Int, perPage: Int, orderBy: String) = launch {
+        when (val result = photoRepository.getUserLikes(userName, page, perPage, orderBy)) {
+            is CoroutineResult.Success -> userLikeList.addAll(result.data)
+            is CoroutineResult.Error -> {
+                messageNotification.value = result.throwable.message.toString()
+                userLikeList.addAll(emptyList())
+            }
+        }
+        _userLikes.value = userLikeList
     }
 }
