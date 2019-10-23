@@ -1,4 +1,4 @@
-package com.sun.mywallpaper.ui.home.collection
+package com.sun.mywallpaper.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

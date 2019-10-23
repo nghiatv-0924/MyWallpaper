@@ -1,4 +1,4 @@
-package com.sun.mywallpaper.ui.home.featuredphoto
+package com.sun.mywallpaper.ui.home
 
 import android.view.Menu
 import android.view.MenuInflater
@@ -6,29 +6,28 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sun.mywallpaper.R
+import com.sun.mywallpaper.adapter.PhotoAdapter
 import com.sun.mywallpaper.base.BaseFragment
 import com.sun.mywallpaper.base.LastItemListener
-import com.sun.mywallpaper.databinding.FragmentFeaturedBinding
-import com.sun.mywallpaper.di.KoinNames
-import com.sun.mywallpaper.adapter.PhotoAdapter
 import com.sun.mywallpaper.base.OnRecyclerItemClickListener
 import com.sun.mywallpaper.data.model.Photo
+import com.sun.mywallpaper.databinding.FragmentPhotoBinding
+import com.sun.mywallpaper.di.KoinNames
 import com.sun.mywallpaper.util.Constants
-import kotlinx.android.synthetic.main.fragment_featured.*
-import kotlinx.android.synthetic.main.fragment_new.progressBar
-import kotlinx.android.synthetic.main.fragment_new.recyclerViewPhoto
+import com.sun.mywallpaper.viewmodel.PhotoViewModel
+import kotlinx.android.synthetic.main.fragment_photo.*
 import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
 
-class FeaturedFragment : BaseFragment<FragmentFeaturedBinding, FeaturedViewModel>(),
+class NewFragment : BaseFragment<FragmentPhotoBinding, PhotoViewModel>(),
     OnRecyclerItemClickListener<Photo> {
 
     override val layoutResource: Int
-        get() = R.layout.fragment_featured
-    override val viewModel: FeaturedViewModel by viewModel()
+        get() = R.layout.fragment_photo
+    override val viewModel: PhotoViewModel by viewModel()
 
-    private val featuredAdapter: PhotoAdapter = get(named(KoinNames.FEATURED_ADAPTER))
+    private val newAdapter: PhotoAdapter = get(named(KoinNames.NEW_ADAPTER))
     private var page = Constants.DEFAULT_PAGE
 
     override fun initComponents() {
@@ -36,19 +35,18 @@ class FeaturedFragment : BaseFragment<FragmentFeaturedBinding, FeaturedViewModel
 
         recyclerViewPhoto.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter =
-                featuredAdapter.also { it.setOnRecyclerItemClickListener(this@FeaturedFragment) }
+            adapter = newAdapter.also { it.setOnRecyclerItemClickListener(this@NewFragment) }
             hasFixedSize()
             addOnScrollListener(object : LastItemListener() {
                 override fun onLastItemVisible() {
-                    viewModel.getFeaturedPhotos(++page, Constants.DEFAULT_PER_PAGE, SORT_BY_LATEST)
+                    viewModel.getNewPhotos(++page, Constants.DEFAULT_PER_PAGE, SORT_BY_LATEST)
                 }
             })
         }
-        featuredSwipeRefreshLayout.apply {
+        photoSwipeRefreshLayout.apply {
             setOnRefreshListener {
                 page = 1
-                viewModel.refreshFeaturedPhotos(page, Constants.DEFAULT_PER_PAGE, SORT_BY_LATEST)
+                viewModel.refreshNewPhotos(page, Constants.DEFAULT_PER_PAGE, SORT_BY_LATEST)
                 isRefreshing = false
             }
         }
@@ -56,19 +54,19 @@ class FeaturedFragment : BaseFragment<FragmentFeaturedBinding, FeaturedViewModel
 
     override fun setBindingVariables() {
         super.setBindingVariables()
-        viewDataBinding.featuredViewModel = this.viewModel
+        viewDataBinding.viewModel = this.viewModel
     }
 
     override fun initData() {
         super.initData()
-        viewModel.getFeaturedPhotos(page, Constants.DEFAULT_PER_PAGE, SORT_BY_LATEST)
+        viewModel.refreshNewPhotos(page, Constants.DEFAULT_PER_PAGE, SORT_BY_LATEST)
     }
 
     override fun observeData() {
         super.observeData()
-        viewModel.featuredPhotos.observe(viewLifecycleOwner, Observer {
+        viewModel.newPhotos.observe(viewLifecycleOwner, Observer {
             it?.let {
-                featuredAdapter.updateData(it)
+                newAdapter.updateData(it)
                 progressBar.visibility = View.GONE
                 recyclerViewPhoto.visibility = View.VISIBLE
             }
@@ -76,7 +74,7 @@ class FeaturedFragment : BaseFragment<FragmentFeaturedBinding, FeaturedViewModel
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.featured_photo, menu)
+        inflater.inflate(R.menu.new_photo, menu)
     }
 
     override fun showItemDetail(item: Photo) {
@@ -88,6 +86,6 @@ class FeaturedFragment : BaseFragment<FragmentFeaturedBinding, FeaturedViewModel
         private const val SORT_BY_POPULAR = "popular"
 
         @JvmStatic
-        fun newInstance() = FeaturedFragment()
+        fun newInstance() = NewFragment()
     }
 }

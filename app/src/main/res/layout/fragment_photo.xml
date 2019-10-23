@@ -6,12 +6,12 @@
     <data>
 
         <variable
-            name="newViewModel"
-            type="com.sun.mywallpaper.ui.home.newphoto.NewViewModel" />
+            name="viewModel"
+            type="com.sun.mywallpaper.viewmodel.PhotoViewModel" />
     </data>
 
     <FrameLayout
-        android:id="@+id/newContainer"
+        android:id="@+id/photoContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/colorPrimary">
@@ -39,7 +39,7 @@
             android:visibility="gone" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/newSwipeRefreshLayout"
+            android:id="@+id/photoSwipeRefreshLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

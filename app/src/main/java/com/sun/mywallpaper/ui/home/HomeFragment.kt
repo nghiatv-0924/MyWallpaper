@@ -1,7 +1,6 @@
 package com.sun.mywallpaper.ui.home
 
 import android.content.Context
-import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import androidx.appcompat.app.AppCompatActivity
@@ -10,10 +9,8 @@ import com.sun.mywallpaper.adapter.PagerAdapter
 import com.sun.mywallpaper.base.BaseFragment
 import com.sun.mywallpaper.base.FragmentInteractionListener
 import com.sun.mywallpaper.databinding.FragmentHomeBinding
-import com.sun.mywallpaper.ui.home.collection.CollectionFragment
-import com.sun.mywallpaper.ui.home.featuredphoto.FeaturedFragment
-import com.sun.mywallpaper.ui.home.newphoto.NewFragment
 import com.sun.mywallpaper.util.Utils
+import com.sun.mywallpaper.viewmodel.HomeViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

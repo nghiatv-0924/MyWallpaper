@@ -20,6 +20,7 @@ import com.sun.mywallpaper.data.model.Photo
 import com.sun.mywallpaper.databinding.FragmentCollectionDetailBinding
 import com.sun.mywallpaper.di.KoinNames
 import com.sun.mywallpaper.ui.userdetail.UserDetailFragment
+import com.sun.mywallpaper.viewmodel.PhotoViewModel
 import kotlinx.android.synthetic.main.fragment_collection_detail.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_user_detail.*
@@ -28,15 +29,16 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
 
 class CollectionDetailFragment :
-    BaseFragment<FragmentCollectionDetailBinding, CollectionDetailViewModel>(),
+    BaseFragment<FragmentCollectionDetailBinding, PhotoViewModel>(),
     OnRecyclerItemClickListener<Photo> {
 
     override val layoutResource: Int
         get() = R.layout.fragment_collection_detail
-    override val viewModel: CollectionDetailViewModel by viewModel()
+    override val viewModel: PhotoViewModel by viewModel()
 
     private var listener: OnCollectionDetailFragmentInteractionListener? = null
-    private val photoAdapter: PhotoAdapter = get(named(KoinNames.COLLECTION_DETAIL_ADAPTER))
+    private val collectionPhotoAdapter: PhotoAdapter =
+        get(named(KoinNames.COLLECTION_DETAIL_ADAPTER))
     private var page = 1
     private val collection by lazy {
         arguments?.getParcelable<Collection>(COLLECTION_DETAIL)
@@ -78,12 +80,12 @@ class CollectionDetailFragment :
         recyclerViewCollectionDetail.apply {
             layoutManager = LinearLayoutManager(context)
             adapter =
-                photoAdapter.also { it.setOnRecyclerItemClickListener(this@CollectionDetailFragment) }
+                collectionPhotoAdapter.also { it.setOnRecyclerItemClickListener(this@CollectionDetailFragment) }
             hasFixedSize()
             addOnScrollListener(object : LastItemListener() {
                 override fun onLastItemVisible() {
                     collection?.let {
-                        viewModel.getPhotos(it.id, ++page, DEFAULT_PER_PAGE)
+                        viewModel.getCollectionPhotos(it.id, ++page, DEFAULT_PER_PAGE)
                         progressBar.visibility = View.VISIBLE
                     }
                 }
@@ -92,7 +94,13 @@ class CollectionDetailFragment :
         collectionDetailSwipeRefreshLayout.apply {
             setOnRefreshListener {
                 page = 1
-                collection?.let { viewModel.refreshPhotos(it.id, ++page, DEFAULT_PER_PAGE) }
+                collection?.let {
+                    viewModel.refreshCollectionPhotos(
+                        it.id,
+                        ++page,
+                        DEFAULT_PER_PAGE
+                    )
+                }
                 isRefreshing = false
             }
         }
@@ -100,19 +108,19 @@ class CollectionDetailFragment :
 
     override fun setBindingVariables() {
         super.setBindingVariables()
-        viewDataBinding.collectionDetailViewModel = this.viewModel
+        viewDataBinding.viewModel = this.viewModel
     }
 
     override fun initData() {
         super.initData()
-        collection?.let { viewModel.getPhotos(it.id, ++page, DEFAULT_PER_PAGE) }
+        collection?.let { viewModel.refreshCollectionPhotos(it.id, ++page, DEFAULT_PER_PAGE) }
     }
 
     override fun observeData() {
         super.observeData()
-        viewModel.photos.observe(viewLifecycleOwner, Observer {
+        viewModel.collectionPhotos.observe(viewLifecycleOwner, Observer {
             it?.let {
-                photoAdapter.updateData(it)
+                collectionPhotoAdapter.updateData(it)
                 progressBar.visibility = View.GONE
                 recyclerViewCollectionDetail.visibility = View.VISIBLE
             }
