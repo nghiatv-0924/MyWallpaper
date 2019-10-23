@@ -1,9 +1,9 @@
-package com.sun.mywallpaper.ui.userdetail
+package com.sun.mywallpaper.viewmodel
 
 import com.sun.mywallpaper.base.BaseViewModel
 import com.sun.mywallpaper.data.repository.UserRepository
 
-class UserDetailViewModel(
+class UserViewModel(
     private val userRepository: UserRepository
 ) : BaseViewModel() {
 

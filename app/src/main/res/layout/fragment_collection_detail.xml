@@ -7,8 +7,8 @@
     <data>
 
         <variable
-            name="collectionDetailViewModel"
-            type="com.sun.mywallpaper.ui.collectiondetail.CollectionDetailViewModel" />
+            name="viewModel"
+            type="com.sun.mywallpaper.viewmodel.PhotoViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

@@ -1,4 +1,4 @@
-package com.sun.mywallpaper.ui.home.collection
+package com.sun.mywallpaper.ui.home
 
 import android.view.Menu
 import android.view.MenuInflater
@@ -15,6 +15,7 @@ import com.sun.mywallpaper.databinding.FragmentCollectionBinding
 import com.sun.mywallpaper.di.KoinNames
 import com.sun.mywallpaper.ui.collectiondetail.CollectionDetailFragment
 import com.sun.mywallpaper.util.Constants
+import com.sun.mywallpaper.viewmodel.CollectionViewModel
 import kotlinx.android.synthetic.main.fragment_collection.*
 import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.viewModel

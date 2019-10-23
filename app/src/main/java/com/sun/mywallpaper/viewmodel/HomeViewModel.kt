@@ -1,4 +1,4 @@
-package com.sun.mywallpaper.ui.home
+package com.sun.mywallpaper.viewmodel
 
 import com.sun.mywallpaper.base.BaseViewModel
 

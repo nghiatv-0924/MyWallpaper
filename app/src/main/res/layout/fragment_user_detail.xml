@@ -4,8 +4,8 @@
     <data>
 
         <variable
-            name="userDetailViewModel"
-            type="com.sun.mywallpaper.ui.userdetail.UserDetailViewModel" />
+            name="viewModel"
+            type="com.sun.mywallpaper.viewmodel.UserViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

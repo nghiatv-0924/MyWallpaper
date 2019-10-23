@@ -1,4 +1,4 @@
-package com.sun.mywallpaper.ui.home.newphoto
+package com.sun.mywallpaper.ui.home
 
 import android.view.Menu
 import android.view.MenuInflater
@@ -11,22 +11,23 @@ import com.sun.mywallpaper.base.BaseFragment
 import com.sun.mywallpaper.base.LastItemListener
 import com.sun.mywallpaper.base.OnRecyclerItemClickListener
 import com.sun.mywallpaper.data.model.Photo
-import com.sun.mywallpaper.databinding.FragmentNewBinding
+import com.sun.mywallpaper.databinding.FragmentPhotoBinding
 import com.sun.mywallpaper.di.KoinNames
 import com.sun.mywallpaper.util.Constants
-import kotlinx.android.synthetic.main.fragment_new.*
+import com.sun.mywallpaper.viewmodel.PhotoViewModel
+import kotlinx.android.synthetic.main.fragment_photo.*
 import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
 
-class NewFragment : BaseFragment<FragmentNewBinding, NewViewModel>(),
+class FeaturedFragment : BaseFragment<FragmentPhotoBinding, PhotoViewModel>(),
     OnRecyclerItemClickListener<Photo> {
 
     override val layoutResource: Int
-        get() = R.layout.fragment_new
-    override val viewModel: NewViewModel by viewModel()
+        get() = R.layout.fragment_photo
+    override val viewModel: PhotoViewModel by viewModel()
 
-    private val newAdapter: PhotoAdapter = get(named(KoinNames.NEW_ADAPTER))
+    private val featuredAdapter: PhotoAdapter = get(named(KoinNames.FEATURED_ADAPTER))
     private var page = Constants.DEFAULT_PAGE
 
     override fun initComponents() {
@@ -34,18 +35,19 @@ class NewFragment : BaseFragment<FragmentNewBinding, NewViewModel>(),
 
         recyclerViewPhoto.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = newAdapter.also { it.setOnRecyclerItemClickListener(this@NewFragment) }
+            adapter =
+                featuredAdapter.also { it.setOnRecyclerItemClickListener(this@FeaturedFragment) }
             hasFixedSize()
             addOnScrollListener(object : LastItemListener() {
                 override fun onLastItemVisible() {
-                    viewModel.getNewPhotos(++page, Constants.DEFAULT_PER_PAGE, SORT_BY_LATEST)
+                    viewModel.getFeaturedPhotos(++page, Constants.DEFAULT_PER_PAGE, SORT_BY_LATEST)
                 }
             })
         }
-        newSwipeRefreshLayout.apply {
+        photoSwipeRefreshLayout.apply {
             setOnRefreshListener {
                 page = 1
-                viewModel.refreshNewPhotos(page, Constants.DEFAULT_PER_PAGE, SORT_BY_LATEST)
+                viewModel.refreshFeaturedPhotos(page, Constants.DEFAULT_PER_PAGE, SORT_BY_LATEST)
                 isRefreshing = false
             }
         }
@@ -53,19 +55,19 @@ class NewFragment : BaseFragment<FragmentNewBinding, NewViewModel>(),
 
     override fun setBindingVariables() {
         super.setBindingVariables()
-        viewDataBinding.newViewModel = this.viewModel
+        viewDataBinding.viewModel = this.viewModel
     }
 
     override fun initData() {
         super.initData()
-        viewModel.getNewPhotos(page, Constants.DEFAULT_PER_PAGE, SORT_BY_LATEST)
+        viewModel.getFeaturedPhotos(page, Constants.DEFAULT_PER_PAGE, SORT_BY_LATEST)
     }
 
     override fun observeData() {
         super.observeData()
-        viewModel.newPhotos.observe(viewLifecycleOwner, Observer {
+        viewModel.featuredPhotos.observe(viewLifecycleOwner, Observer {
             it?.let {
-                newAdapter.updateData(it)
+                featuredAdapter.updateData(it)
                 progressBar.visibility = View.GONE
                 recyclerViewPhoto.visibility = View.VISIBLE
             }
@@ -73,7 +75,7 @@ class NewFragment : BaseFragment<FragmentNewBinding, NewViewModel>(),
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.new_photo, menu)
+        inflater.inflate(R.menu.featured_photo, menu)
     }
 
     override fun showItemDetail(item: Photo) {
@@ -85,6 +87,6 @@ class NewFragment : BaseFragment<FragmentNewBinding, NewViewModel>(),
         private const val SORT_BY_POPULAR = "popular"
 
         @JvmStatic
-        fun newInstance() = NewFragment()
+        fun newInstance() = FeaturedFragment()
     }
 }

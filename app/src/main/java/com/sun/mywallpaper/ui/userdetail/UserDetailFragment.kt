@@ -15,13 +15,14 @@ import com.sun.mywallpaper.base.BaseFragment
 import com.sun.mywallpaper.base.FragmentInteractionListener
 import com.sun.mywallpaper.data.model.User
 import com.sun.mywallpaper.databinding.FragmentUserDetailBinding
+import com.sun.mywallpaper.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.fragment_user_detail.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class UserDetailFragment : BaseFragment<FragmentUserDetailBinding, UserDetailViewModel>() {
+class UserDetailFragment : BaseFragment<FragmentUserDetailBinding, UserViewModel>() {
     override val layoutResource: Int
         get() = R.layout.fragment_user_detail
-    override val viewModel: UserDetailViewModel by viewModel()
+    override val viewModel: UserViewModel by viewModel()
 
     private var listener: OnUserDetailFragmentInteractionListener? = null
     private val user by lazy {

@@ -7,7 +7,7 @@
 
         <variable
             name="collectionViewModel"
-            type="com.sun.mywallpaper.ui.home.collection.CollectionViewModel" />
+            type="com.sun.mywallpaper.viewmodel.CollectionViewModel" />
     </data>
 
     <FrameLayout
