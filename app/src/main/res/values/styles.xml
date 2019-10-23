@@ -7,6 +7,7 @@
         <item name="primaryTextColor">@color/colorTextLight</item>
         <item name="secondaryTextColor">@color/colorTextSecondaryLight</item>
         <item name="fabColor">@color/colorAccentLight</item>
+        <item name="menuBackgroundColor">@color/menuBackgroundDark</item>
         <item name="toolbarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
         <item name="actionBarTheme">@style/ActionBarThemeLight</item>
         <item name="searchIcon">@drawable/ic_search_black_24dp</item>
@@ -27,6 +28,9 @@
         <item name="backIcon">@drawable/ic_arrow_back_black_24dp</item>
         <item name="locationIcon">@drawable/ic_location_on_black_24dp</item>
         <item name="closeIcon">@drawable/ic_close_black_24dp</item>
+        <item name="calendarIcon">@drawable/ic_date_range_black_24dp</item>
+        <item name="downloadIcon">@drawable/ic_file_download_black_24dp</item>
+        <item name="paletteIcon">@drawable/ic_palette_black_24dp</item>
     </style>
 
     <style name="SplashActivityTheme" parent="Theme.Primary.Base.Light">

@@ -7,6 +7,7 @@ import com.sun.mywallpaper.base.HasNavigationManager
 import com.sun.mywallpaper.base.NavigationManager
 import com.sun.mywallpaper.ui.collectiondetail.CollectionDetailFragment
 import com.sun.mywallpaper.ui.home.HomeFragment
+import com.sun.mywallpaper.ui.photodetail.PhotoDetailFragment
 import com.sun.mywallpaper.ui.search.SearchFragment
 import com.sun.mywallpaper.ui.userdetail.UserDetailFragment
 
@@ -15,6 +16,7 @@ class MainActivity : AppCompatActivity(),
     CollectionDetailFragment.OnCollectionDetailFragmentInteractionListener,
     UserDetailFragment.OnUserDetailFragmentInteractionListener,
     SearchFragment.OnSearchFragmentInteractionListener,
+    PhotoDetailFragment.OnPhotoDetailFragmentInteractionListener,
     HasNavigationManager {
 
     private lateinit var navigationManager: NavigationManager

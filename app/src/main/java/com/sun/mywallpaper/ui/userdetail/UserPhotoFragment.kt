@@ -13,6 +13,7 @@ import com.sun.mywallpaper.data.model.Photo
 import com.sun.mywallpaper.data.model.User
 import com.sun.mywallpaper.databinding.FragmentPhotoBinding
 import com.sun.mywallpaper.di.KoinNames
+import com.sun.mywallpaper.ui.photodetail.PhotoDetailFragment
 import com.sun.mywallpaper.util.Constants
 import com.sun.mywallpaper.viewmodel.PhotoViewModel
 import kotlinx.android.synthetic.main.fragment_photo.*
@@ -61,6 +62,7 @@ class UserPhotoFragment : BaseFragment<FragmentPhotoBinding, PhotoViewModel>(),
     }
 
     override fun showItemDetail(item: Photo) {
+        getNavigationManager().open(PhotoDetailFragment.newInstance(item))
     }
 
     private fun initRecyclerView() {

@@ -21,6 +21,7 @@ import com.sun.mywallpaper.data.model.Collection
 import com.sun.mywallpaper.data.model.Photo
 import com.sun.mywallpaper.databinding.FragmentCollectionDetailBinding
 import com.sun.mywallpaper.di.KoinNames
+import com.sun.mywallpaper.ui.photodetail.PhotoDetailFragment
 import com.sun.mywallpaper.ui.userdetail.UserDetailFragment
 import com.sun.mywallpaper.util.Constants
 import com.sun.mywallpaper.viewmodel.PhotoViewModel
@@ -97,6 +98,7 @@ class CollectionDetailFragment :
     override fun onBackPressed() = getNavigationManager().navigateBack()
 
     override fun showItemDetail(item: Photo) {
+        getNavigationManager().open(PhotoDetailFragment.newInstance(item))
     }
 
     private fun initToolbar() {

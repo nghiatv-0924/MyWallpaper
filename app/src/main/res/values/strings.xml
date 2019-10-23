@@ -38,4 +38,11 @@
         <item>Portrait</item>
         <item>Squarish</item>
     </string-array>
+
+    <string name="stats">Stats</string>
+    <string name="photo_info">Info</string>
+    <string name="set_as_wallpaper">Set as wallpaper</string>
+    <string name="download">Download</string>
+    <string name="likes">%1$s likes</string>
+    <string name="downloads">%1$s downloads</string>
 </resources>
