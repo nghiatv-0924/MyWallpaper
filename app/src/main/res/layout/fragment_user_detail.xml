@@ -39,7 +39,7 @@
                     android:layout_height="@dimen/dp_60"
                     android:layout_margin="@dimen/dp_16"
                     android:contentDescription="@string/app_name"
-                    app:layout_constraintBottom_toTopOf="@id/guideline"
+                    app:layout_constraintBottom_toTopOf="@id/barrier"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/toolBar" />
 
@@ -77,17 +77,17 @@
                     android:textColor="?attr/primaryTextColor"
                     android:textColorLink="?attr/primaryTextColor"
                     android:textSize="@dimen/sp_16"
-                    app:layout_constraintBottom_toTopOf="@id/guideline"
+                    app:layout_constraintBottom_toTopOf="@id/barrier"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/imageUser"
                     app:layout_constraintTop_toBottomOf="@id/textUserLocation" />
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline"
+                <androidx.constraintlayout.widget.Barrier
+                    android:id="@+id/barrier"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.6" />
+                    app:barrierDirection="bottom"
+                    app:constraint_referenced_ids="imageUser,textUserPortfolioUrl" />
 
                 <TextView
                     android:id="@+id/textUserBio"
@@ -96,11 +96,9 @@
                     android:layout_margin="@dimen/dp_16"
                     android:textColor="?attr/primaryTextColor"
                     android:textSize="@dimen/sp_16"
-                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/guideline" />
-
+                    app:layout_constraintTop_toBottomOf="@id/barrier" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -16,6 +16,7 @@ import com.sun.mywallpaper.di.KoinNames
 import com.sun.mywallpaper.util.Constants
 import com.sun.mywallpaper.viewmodel.PhotoViewModel
 import kotlinx.android.synthetic.main.fragment_photo.*
+import kotlinx.android.synthetic.main.no_results_layout.*
 import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
@@ -34,38 +35,8 @@ class UserPhotoFragment : BaseFragment<FragmentPhotoBinding, PhotoViewModel>(),
     }
 
     override fun initComponents() {
-        recyclerViewPhoto.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter =
-                userPhotoAdapter.also { it.setOnRecyclerItemClickListener(this@UserPhotoFragment) }
-            hasFixedSize()
-            addOnScrollListener(object : LastItemListener() {
-                override fun onLastItemVisible() {
-                    user?.let {
-                        viewModel.getUserPhotos(
-                            it.username,
-                            ++page,
-                            Constants.DEFAULT_PER_PAGE,
-                            SORT_BY_LATEST
-                        )
-                    }
-                }
-            })
-        }
-        photoSwipeRefreshLayout.apply {
-            user?.let {
-                setOnRefreshListener {
-                    page = 1
-                    viewModel.refreshUserPhotos(
-                        it.username,
-                        page,
-                        Constants.DEFAULT_PER_PAGE,
-                        SORT_BY_LATEST
-                    )
-                    isRefreshing = false
-                }
-            }
-        }
+        initRecyclerView()
+        initSwipeRefreshLayout()
     }
 
     override fun setBindingVariables() {
@@ -75,14 +46,7 @@ class UserPhotoFragment : BaseFragment<FragmentPhotoBinding, PhotoViewModel>(),
 
     override fun initData() {
         super.initData()
-        user?.let {
-            viewModel.refreshUserPhotos(
-                it.username,
-                page,
-                Constants.DEFAULT_PER_PAGE,
-                SORT_BY_LATEST
-            )
-        }
+        refreshUserPhotos()
     }
 
     override fun observeData() {
@@ -97,6 +61,53 @@ class UserPhotoFragment : BaseFragment<FragmentPhotoBinding, PhotoViewModel>(),
     }
 
     override fun showItemDetail(item: Photo) {
+    }
+
+    private fun initRecyclerView() {
+        recyclerViewPhoto.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter =
+                userPhotoAdapter.also { it.setOnRecyclerItemClickListener(this@UserPhotoFragment) }
+            hasFixedSize()
+            addOnScrollListener(object : LastItemListener() {
+                override fun onLastItemVisible() {
+                    getUserPhotos()
+                }
+            })
+        }
+    }
+
+    private fun initSwipeRefreshLayout() {
+        photoSwipeRefreshLayout.apply {
+            setOnRefreshListener {
+                refreshUserPhotos()
+                isRefreshing = false
+            }
+        }
+    }
+
+    private fun refreshUserPhotos() {
+        page = Constants.DEFAULT_PAGE
+        progressBar.visibility = View.VISIBLE
+        user?.let {
+            if (it.totalPhotos == Constants.NO_VALUE) {
+                progressBar.visibility = View.GONE
+                noResultsView.visibility = View.VISIBLE
+            } else {
+                viewModel.refreshUserPhotos(
+                    it.username,
+                    page,
+                    Constants.DEFAULT_PER_PAGE,
+                    SORT_BY_LATEST
+                )
+            }
+        }
+    }
+
+    private fun getUserPhotos() {
+        user?.let {
+            viewModel.getUserPhotos(it.username, ++page, Constants.DEFAULT_PER_PAGE, SORT_BY_LATEST)
+        }
     }
 
     companion object {

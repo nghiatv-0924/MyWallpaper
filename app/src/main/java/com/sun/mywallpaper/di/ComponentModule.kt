@@ -2,6 +2,7 @@ package com.sun.mywallpaper.di
 
 import com.sun.mywallpaper.adapter.CollectionAdapter
 import com.sun.mywallpaper.adapter.PhotoAdapter
+import com.sun.mywallpaper.adapter.UserAdapter
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
@@ -33,5 +34,17 @@ val componentModule = module {
 
     single(named(KoinNames.USER_DETAIL_COLLECTION_ADAPTER)) {
         CollectionAdapter()
+    }
+
+    single(named(KoinNames.SEARCH_PHOTO_ADAPTER)) {
+        PhotoAdapter()
+    }
+
+    single(named(KoinNames.SEARCH_COLLECTION_ADAPTER)) {
+        CollectionAdapter()
+    }
+
+    single(named(KoinNames.SEARCH_USER_ADAPTER)) {
+        UserAdapter()
     }
 }

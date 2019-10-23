@@ -16,6 +16,7 @@ import com.sun.mywallpaper.di.KoinNames
 import com.sun.mywallpaper.util.Constants
 import com.sun.mywallpaper.viewmodel.PhotoViewModel
 import kotlinx.android.synthetic.main.fragment_photo.*
+import kotlinx.android.synthetic.main.no_results_layout.*
 import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
@@ -34,38 +35,8 @@ class UserLikeFragment : BaseFragment<FragmentPhotoBinding, PhotoViewModel>(),
     }
 
     override fun initComponents() {
-        recyclerViewPhoto.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter =
-                userLikeAdapter.also { it.setOnRecyclerItemClickListener(this@UserLikeFragment) }
-            hasFixedSize()
-            addOnScrollListener(object : LastItemListener() {
-                override fun onLastItemVisible() {
-                    user?.let {
-                        viewModel.getUserLikes(
-                            it.username,
-                            ++page,
-                            Constants.DEFAULT_PER_PAGE,
-                            SORT_BY_LATEST
-                        )
-                    }
-                }
-            })
-        }
-        photoSwipeRefreshLayout.apply {
-            user?.let {
-                setOnRefreshListener {
-                    page = 1
-                    viewModel.refreshUserLikes(
-                        it.username,
-                        page,
-                        Constants.DEFAULT_PER_PAGE,
-                        SORT_BY_LATEST
-                    )
-                    isRefreshing = false
-                }
-            }
-        }
+        initRecyclerView()
+        initSwipeRefreshLayout()
     }
 
     override fun setBindingVariables() {
@@ -75,14 +46,7 @@ class UserLikeFragment : BaseFragment<FragmentPhotoBinding, PhotoViewModel>(),
 
     override fun initData() {
         super.initData()
-        user?.let {
-            viewModel.refreshUserLikes(
-                it.username,
-                page,
-                Constants.DEFAULT_PER_PAGE,
-                SORT_BY_LATEST
-            )
-        }
+        refreshUserLikes()
     }
 
     override fun observeData() {
@@ -97,6 +61,53 @@ class UserLikeFragment : BaseFragment<FragmentPhotoBinding, PhotoViewModel>(),
     }
 
     override fun showItemDetail(item: Photo) {
+    }
+
+    private fun initRecyclerView() {
+        recyclerViewPhoto.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter =
+                userLikeAdapter.also { it.setOnRecyclerItemClickListener(this@UserLikeFragment) }
+            hasFixedSize()
+            addOnScrollListener(object : LastItemListener() {
+                override fun onLastItemVisible() {
+                    getUserLikes()
+                }
+            })
+        }
+    }
+
+    private fun initSwipeRefreshLayout() {
+        photoSwipeRefreshLayout.apply {
+            setOnRefreshListener {
+                refreshUserLikes()
+                isRefreshing = false
+            }
+        }
+    }
+
+    private fun refreshUserLikes() {
+        page = Constants.DEFAULT_PAGE
+        progressBar.visibility = View.VISIBLE
+        user?.let {
+            if (it.totalLikes == Constants.NO_VALUE) {
+                progressBar.visibility = View.GONE
+                noResultsView.visibility = View.VISIBLE
+            } else {
+                viewModel.refreshUserLikes(
+                    it.username,
+                    page,
+                    Constants.DEFAULT_PER_PAGE,
+                    SORT_BY_LATEST
+                )
+            }
+        }
+    }
+
+    private fun getUserLikes() {
+        user?.let {
+            viewModel.getUserLikes(it.username, ++page, Constants.DEFAULT_PER_PAGE, SORT_BY_LATEST)
+        }
     }
 
     companion object {

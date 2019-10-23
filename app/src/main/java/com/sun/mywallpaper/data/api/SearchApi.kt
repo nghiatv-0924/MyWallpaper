@@ -14,8 +14,8 @@ interface SearchApi {
         @Query(QUERY_QUERY) query: String,
         @Query(QUERY_PAGE) page: Int,
         @Query(QUERY_PER_PAGE) perPage: Int,
-        @Query(QUERY_COLLECTIONS) collections: String,
-        @Query(QUERY_ORIENTATION) orientation: String
+        @Query(QUERY_COLLECTIONS) collections: String?,
+        @Query(QUERY_ORIENTATION) orientation: String?
     ): Deferred<SearchPhotosResponse>
 
     @GET("$PATH_SEARCH/$PATH_USERS")

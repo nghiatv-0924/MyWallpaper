@@ -1,11 +1,15 @@
 package com.sun.mywallpaper.ui.search
 
 import android.content.Context
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.sun.mywallpaper.R
 import com.sun.mywallpaper.adapter.PagerAdapter
@@ -30,6 +34,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>(),
     private val inputMethodManager by lazy {
         (activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
     }
+    private val searchPhotoFragment = SearchPhotoFragment.newInstance()
+    private val searchCollectionFragment = SearchCollectionFragment.newInstance()
+    private val searchUserFragment = SearchUserFragment.newInstance()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -60,8 +67,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>(),
 
             R.id.actionClearText -> {
                 editTextSearch.text = null
-                editTextSearch.clearFocus()
-                inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
                 true
             }
 
@@ -89,6 +94,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>(),
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        searchPhotoFragment.setOrientation(editTextSearch.text.toString(), position)
     }
 
     private fun initToolbar() {
@@ -103,6 +109,14 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>(),
     private fun initSearchText() {
         editTextSearch.apply {
             requestFocus()
+            setOnEditorActionListener { _, _, _ ->
+                searchPhotoFragment.searchPhotos(text.toString().trim())
+                searchCollectionFragment.searchCollections(text.toString().trim())
+                searchUserFragment.searchUsers(text.toString().trim())
+                editTextSearch.clearFocus()
+                inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
+                true
+            }
             inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
         }
     }
@@ -110,6 +124,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>(),
     private fun initViewPager() {
         pagerAdapter = PagerAdapter(childFragmentManager)
         pagerAdapter.apply {
+            addFragment(searchPhotoFragment, getString(R.string.drawer_photos))
+            addFragment(searchCollectionFragment, getString(R.string.drawer_collections))
+            addFragment(searchUserFragment, getString(R.string.drawer_users))
         }
         viewPager.apply {
             adapter = pagerAdapter
