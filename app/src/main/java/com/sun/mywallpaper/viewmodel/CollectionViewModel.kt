@@ -14,8 +14,14 @@ class CollectionViewModel(
 
     val collections: LiveData<List<Collection>>
         get() = _collections
+    val userCollections: LiveData<List<Collection>>
+        get() = _userCollections
+
     private val _collections = MutableLiveData<List<Collection>>()
+    private val _userCollections = MutableLiveData<List<Collection>>()
+
     private val collectionList = mutableListOf<Collection>()
+    private val userCollectionList = mutableListOf<Collection>()
 
     override fun create() {
     }
@@ -34,5 +40,21 @@ class CollectionViewModel(
             }
         }
         _collections.value = collectionList
+    }
+
+    fun refreshUserCollections(username: String, page: Int, perPage: Int) {
+        userCollectionList.clear()
+        getUserCollections(username, page, perPage)
+    }
+
+    fun getUserCollections(username: String, page: Int, perPage: Int) = launch {
+        when (val result = collectionRepository.getUserCollections(username, page, perPage)) {
+            is CoroutineResult.Success -> userCollectionList.addAll(result.data)
+            is CoroutineResult.Error -> {
+                messageNotification.value = result.throwable.message.toString()
+                userCollectionList.addAll(emptyList())
+            }
+        }
+        _userCollections.value = userCollectionList
     }
 }

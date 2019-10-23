@@ -34,4 +34,7 @@ object KoinNames {
     const val FEATURED_ADAPTER = "name_featured_adapter"
     const val COLLECTION_ADAPTER = "name_collection_adapter"
     const val COLLECTION_DETAIL_ADAPTER = "name_collection_detail_adapter"
+    const val USER_DETAIL_PHOTO_ADAPTER = "name_user_detail_photo_adapter"
+    const val USER_DETAIL_LIKE_ADAPTER = "name_user_detail_like_adapter"
+    const val USER_DETAIL_COLLECTION_ADAPTER = "name_user_detail_collection_adapter"
 }

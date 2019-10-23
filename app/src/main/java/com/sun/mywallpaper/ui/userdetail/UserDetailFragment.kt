@@ -62,7 +62,20 @@ class UserDetailFragment : BaseFragment<FragmentUserDetailBinding, UserViewModel
 
         pagerAdapter = PagerAdapter(childFragmentManager)
         pagerAdapter.apply {
-
+            user?.let {
+                addFragment(
+                    UserPhotoFragment.newInstance(it),
+                    "${it.totalPhotos} ${getString(R.string.drawer_photos)}"
+                )
+                addFragment(
+                    UserLikeFragment.newInstance(it),
+                    "${it.totalLikes} ${getString(R.string.drawer_likes)}"
+                )
+                addFragment(
+                    UserCollectionFragment.newInstance(it),
+                    "${it.totalCollections} ${getString(R.string.drawer_collections)}"
+                )
+            }
         }
         viewPager.apply {
             adapter = pagerAdapter

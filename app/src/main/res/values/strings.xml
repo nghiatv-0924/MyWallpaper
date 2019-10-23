@@ -4,6 +4,8 @@
     <string name="drawer_featured">Featured</string>
     <string name="drawer_new">New</string>
     <string name="drawer_collections">Collections</string>
+    <string name="drawer_photos">Photos</string>
+    <string name="drawer_likes">Likes</string>
 
     <string name="menu_search">Search</string>
     <string name="menu_sort">Sort by</string>
