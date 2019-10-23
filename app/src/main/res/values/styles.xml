@@ -26,6 +26,7 @@
         <item name="collectionsIcon">@drawable/ic_collections_black_24dp</item>
         <item name="backIcon">@drawable/ic_arrow_back_black_24dp</item>
         <item name="locationIcon">@drawable/ic_location_on_black_24dp</item>
+        <item name="closeIcon">@drawable/ic_close_black_24dp</item>
     </style>
 
     <style name="SplashActivityTheme" parent="Theme.Primary.Base.Light">

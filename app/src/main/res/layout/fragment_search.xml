@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.sun.mywallpaper.viewmodel.SearchViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/activity_search"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:theme="@style/ThemeOverlay.AppCompat.Light">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolBar"
+                style="@style/ToolbarTheme"
+                android:elevation="@dimen/dp_4">
+
+                <EditText
+                    android:id="@+id/editTextSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/search_hint"
+                    android:imeOptions="actionSearch"
+                    android:importantForAutofill="no"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:textColor="?attr/primaryTextColor"
+                    android:textColorHint="?attr/secondaryTextColor" />
+
+            </androidx.appcompat.widget.Toolbar>
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimary"
+                android:elevation="@dimen/dp_4"
+                app:tabGravity="fill"
+                app:tabIndicatorColor="?attr/primaryTextColor"
+                app:tabMode="fixed"
+                app:tabSelectedTextColor="?attr/primaryTextColor"
+                app:tabTextColor="?attr/secondaryTextColor" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/spinnerSearchOption"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_56"
+                android:backgroundTint="?attr/primaryTextColor"
+                android:dropDownVerticalOffset="@dimen/dp_8"
+                android:elevation="@dimen/dp_4"
+                android:paddingStart="@dimen/dp_16"
+                android:paddingEnd="@dimen/dp_16"
+                app:popupTheme="?attr/toolbarPopupTheme" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>
