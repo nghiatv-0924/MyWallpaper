@@ -74,7 +74,8 @@ class UserCollectionFragment : BaseFragment<FragmentCollectionBinding, Collectio
             hasFixedSize()
             addOnScrollListener(object : LastItemListener() {
                 override fun onLastItemVisible() {
-                    getUserCollections()
+                    if (loadMore)
+                        getUserCollections()
                 }
             })
         }
@@ -93,6 +94,7 @@ class UserCollectionFragment : BaseFragment<FragmentCollectionBinding, Collectio
 
     private fun refreshUserCollections() {
         page = Constants.DEFAULT_PAGE
+        loadMore = true
         progressBar.visibility = View.VISIBLE
         user?.let {
             if (it.totalCollections == Constants.NO_VALUE) {

@@ -39,6 +39,7 @@ class SearchUserFragment : BaseFragment<FragmentSearchUserBinding, SearchViewMod
                 isRefreshing = false
             }
         }
+        noResultsView.visibility = View.VISIBLE
     }
 
     override fun setBindingVariables() {
@@ -50,9 +51,13 @@ class SearchUserFragment : BaseFragment<FragmentSearchUserBinding, SearchViewMod
         super.observeData()
         viewModel.searchUserResponses.observe(viewLifecycleOwner, Observer {
             it?.let {
-                searchUserAdapter.updateData(it.results)
                 progressBar.visibility = View.GONE
-                recyclerViewSearchUser.visibility = View.VISIBLE
+                if (it.total == Constants.NO_VALUE) {
+                    noResultsView.visibility = View.VISIBLE
+                } else {
+                    searchUserAdapter.updateData(it.results)
+                    recyclerViewSearchUser.visibility = View.VISIBLE
+                }
             }
         })
     }

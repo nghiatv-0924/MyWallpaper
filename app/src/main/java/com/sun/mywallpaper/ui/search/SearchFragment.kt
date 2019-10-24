@@ -9,7 +9,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.sun.mywallpaper.R
 import com.sun.mywallpaper.adapter.PagerAdapter
@@ -55,6 +54,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>(),
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
         inflater.inflate(R.menu.search, menu)
     }
 
@@ -99,7 +99,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>(),
 
     private fun initToolbar() {
         (activity as AppCompatActivity).apply {
-            setSupportActionBar(toolBar)
+            setSupportActionBar(toolBarSearch)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             supportActionBar?.title = Constants.EMPTY_STRING
         }

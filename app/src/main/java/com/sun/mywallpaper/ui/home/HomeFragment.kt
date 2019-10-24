@@ -35,13 +35,35 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     }
 
     override fun initComponents() {
+        initToolbar()
+        initViewPager()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+        inflater.inflate(R.menu.home, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean =
+        when (item.itemId) {
+            R.id.actionSearch -> {
+                getNavigationManager().open(SearchFragment.newInstance())
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
+
+    private fun initToolbar() {
         (activity as AppCompatActivity).apply {
-            setSupportActionBar(toolBar)
+            setSupportActionBar(toolBarHome)
             supportActionBar?.setTitle(R.string.app_name)
             Utils.isStoragePermissionGranted(this)
         }
         setHasOptionsMenu(true)
+    }
 
+    private fun initViewPager() {
         pagerAdapter = PagerAdapter(childFragmentManager)
         pagerAdapter.apply {
             addFragment(NewFragment.newInstance(), getString(R.string.drawer_new))
@@ -55,20 +77,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
         tabLayout.setupWithViewPager(viewPager)
     }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.home, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean =
-        when (item.itemId) {
-            R.id.actionSearch -> {
-                getNavigationManager().open(SearchFragment.newInstance())
-                true
-            }
-
-            else -> super.onOptionsItemSelected(item)
-        }
 
     interface OnHomeFragmentInteractionListener : FragmentInteractionListener
 

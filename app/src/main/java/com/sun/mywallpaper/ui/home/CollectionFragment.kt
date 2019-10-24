@@ -33,25 +33,8 @@ class CollectionFragment : BaseFragment<FragmentCollectionBinding, CollectionVie
 
     override fun initComponents() {
         setHasOptionsMenu(true)
-
-        recyclerViewCollection.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter =
-                collectionAdapter.also { it.setOnRecyclerItemClickListener(this@CollectionFragment) }
-            hasFixedSize()
-            addOnScrollListener(object : LastItemListener() {
-                override fun onLastItemVisible() {
-                    viewModel.getCollections(++page, Constants.DEFAULT_PER_PAGE)
-                }
-            })
-        }
-        collectionSwipeRefreshLayout.apply {
-            setOnRefreshListener {
-                page = 1
-                viewModel.refreshCollections(page, Constants.DEFAULT_PER_PAGE)
-                isRefreshing = false
-            }
-        }
+        initRecyclerView()
+        initSwipeRefreshLayout()
     }
 
     override fun setBindingVariables() {
@@ -61,7 +44,7 @@ class CollectionFragment : BaseFragment<FragmentCollectionBinding, CollectionVie
 
     override fun initData() {
         super.initData()
-        viewModel.refreshCollections(page, Constants.DEFAULT_PER_PAGE)
+        refreshCollections()
     }
 
     override fun observeData() {
@@ -81,6 +64,40 @@ class CollectionFragment : BaseFragment<FragmentCollectionBinding, CollectionVie
 
     override fun showItemDetail(item: Collection) {
         getNavigationManager().open(CollectionDetailFragment.newInstance(item))
+    }
+
+    private fun initRecyclerView() {
+        recyclerViewCollection.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter =
+                collectionAdapter.also { it.setOnRecyclerItemClickListener(this@CollectionFragment) }
+            hasFixedSize()
+            addOnScrollListener(object : LastItemListener() {
+                override fun onLastItemVisible() {
+                    if (loadMore)
+                        getCollections()
+                }
+            })
+        }
+    }
+
+    private fun initSwipeRefreshLayout() {
+        collectionSwipeRefreshLayout.apply {
+            setOnRefreshListener {
+                refreshCollections()
+                isRefreshing = false
+            }
+        }
+    }
+
+    private fun refreshCollections() {
+        page = Constants.DEFAULT_PAGE
+        loadMore = true
+        viewModel.refreshCollections(page, Constants.DEFAULT_PER_PAGE)
+    }
+
+    private fun getCollections() {
+        viewModel.getCollections(++page, Constants.DEFAULT_PER_PAGE)
     }
 
     companion object {

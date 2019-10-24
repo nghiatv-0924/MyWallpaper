@@ -39,9 +39,9 @@ class NavigationManager(
         val fragmentTransaction = fragmentManager.beginTransaction()
 
         if (isRoot) {
-            fragmentTransaction.replace(container, fragment, FRAGMENT_TAG_ROOT)
+            fragmentTransaction.add(container, fragment, FRAGMENT_TAG_ROOT)
         } else {
-            fragmentTransaction.replace(container, fragment)
+            fragmentTransaction.add(container, fragment)
         }
 
         fragmentTransaction.setAnimations()

@@ -32,24 +32,8 @@ class NewFragment : BaseFragment<FragmentPhotoBinding, PhotoViewModel>(),
 
     override fun initComponents() {
         setHasOptionsMenu(true)
-
-        recyclerViewPhoto.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = newAdapter.also { it.setOnRecyclerItemClickListener(this@NewFragment) }
-            hasFixedSize()
-            addOnScrollListener(object : LastItemListener() {
-                override fun onLastItemVisible() {
-                    viewModel.getNewPhotos(++page, Constants.DEFAULT_PER_PAGE, SORT_BY_LATEST)
-                }
-            })
-        }
-        photoSwipeRefreshLayout.apply {
-            setOnRefreshListener {
-                page = 1
-                viewModel.refreshNewPhotos(page, Constants.DEFAULT_PER_PAGE, SORT_BY_LATEST)
-                isRefreshing = false
-            }
-        }
+        initRecyclerView()
+        initSwipeRefreshLayout()
     }
 
     override fun setBindingVariables() {
@@ -59,7 +43,7 @@ class NewFragment : BaseFragment<FragmentPhotoBinding, PhotoViewModel>(),
 
     override fun initData() {
         super.initData()
-        viewModel.refreshNewPhotos(page, Constants.DEFAULT_PER_PAGE, SORT_BY_LATEST)
+        refreshNewPhotos()
     }
 
     override fun observeData() {
@@ -78,6 +62,39 @@ class NewFragment : BaseFragment<FragmentPhotoBinding, PhotoViewModel>(),
     }
 
     override fun showItemDetail(item: Photo) {
+    }
+
+    private fun initRecyclerView() {
+        recyclerViewPhoto.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = newAdapter.also { it.setOnRecyclerItemClickListener(this@NewFragment) }
+            hasFixedSize()
+            addOnScrollListener(object : LastItemListener() {
+                override fun onLastItemVisible() {
+                    if (loadMore)
+                        getNewPhotos()
+                }
+            })
+        }
+    }
+
+    private fun initSwipeRefreshLayout() {
+        photoSwipeRefreshLayout.apply {
+            setOnRefreshListener {
+                refreshNewPhotos()
+                isRefreshing = false
+            }
+        }
+    }
+
+    private fun refreshNewPhotos() {
+        page = Constants.DEFAULT_PAGE
+        loadMore = true
+        viewModel.refreshNewPhotos(page, Constants.DEFAULT_PER_PAGE, SORT_BY_LATEST)
+    }
+
+    private fun getNewPhotos() {
+        viewModel.getNewPhotos(++page, Constants.DEFAULT_PER_PAGE, SORT_BY_LATEST)
     }
 
     companion object {

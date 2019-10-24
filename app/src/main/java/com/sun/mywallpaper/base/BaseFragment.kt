@@ -12,6 +12,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import com.sun.mywallpaper.util.Constants
 
 
 abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : Fragment(), LifecycleOwner {
@@ -19,6 +20,7 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : Fragment
     protected abstract val layoutResource: Int
     protected abstract val viewModel: VM
     protected lateinit var viewDataBinding: VB
+    protected var loadMore = true
     private lateinit var navigationManagerInner: NavigationManager
     private lateinit var fragmentInteractionInner: FragmentInteractionListener
 
@@ -74,7 +76,11 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : Fragment
     }
 
     protected open fun observeData() {
-        viewModel.messageNotification.observe(this, Observer { toast(it) })
+        viewModel.messageNotification.observe(this, Observer {
+            if (it == Constants.MESSAGE_DATA_NOT_FOUND)
+                loadMore = false
+            toast(it)
+        })
     }
 
     open fun setBindingVariables() {

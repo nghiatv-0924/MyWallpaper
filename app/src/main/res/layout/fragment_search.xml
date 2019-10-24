@@ -25,7 +25,7 @@
             android:theme="@style/ThemeOverlay.AppCompat.Light">
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolBar"
+                android:id="@+id/toolBarSearch"
                 style="@style/ToolbarTheme"
                 android:elevation="@dimen/dp_4">
 

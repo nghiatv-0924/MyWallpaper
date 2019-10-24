@@ -45,6 +45,7 @@ class UserDetailFragment : BaseFragment<FragmentUserDetailBinding, UserViewModel
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
         inflater.inflate(R.menu.detail, menu)
     }
 
@@ -59,7 +60,7 @@ class UserDetailFragment : BaseFragment<FragmentUserDetailBinding, UserViewModel
 
     private fun initToolbar() {
         (activity as AppCompatActivity).apply {
-            setSupportActionBar(toolBar)
+            setSupportActionBar(toolBarUserDetail)
             supportActionBar?.title = user?.name
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
