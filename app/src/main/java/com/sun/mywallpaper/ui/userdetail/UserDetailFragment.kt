@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -40,26 +39,34 @@ class UserDetailFragment : BaseFragment<FragmentUserDetailBinding, UserViewModel
     }
 
     override fun initComponents() {
+        initToolbar()
+        initViewPager()
+        initOther()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.detail, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> onBackPressed()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() = getNavigationManager().navigateBack()
+
+    private fun initToolbar() {
         (activity as AppCompatActivity).apply {
             setSupportActionBar(toolBar)
             supportActionBar?.title = user?.name
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
         setHasOptionsMenu(true)
+    }
 
-        user?.let {
-            Glide.with(this)
-                .load(it.profileImage.large)
-                .apply(RequestOptions.circleCropTransform())
-                .into(imageUser)
-            textUserLocation.text = it.location
-            textUserPortfolioUrl.text = it.portfolioUrl
-            if (it.bio.isNotEmpty()) {
-                textUserBio.text = it.bio
-                textUserBio.visibility = View.VISIBLE
-            }
-        }
-
+    private fun initViewPager() {
         pagerAdapter = PagerAdapter(childFragmentManager)
         pagerAdapter.apply {
             user?.let {
@@ -85,18 +92,17 @@ class UserDetailFragment : BaseFragment<FragmentUserDetailBinding, UserViewModel
         tabLayout.setupWithViewPager(viewPager)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.detail, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> onBackPressed()
+    private fun initOther() {
+        user?.let {
+            Glide.with(this)
+                .load(it.profileImage.large)
+                .apply(RequestOptions.circleCropTransform())
+                .into(imageUser)
+            textUserLocation.text = it.location
+            textUserPortfolioUrl.text = it.portfolioUrl
+            textUserBio.text = it.bio
         }
-        return super.onOptionsItemSelected(item)
     }
-
-    override fun onBackPressed() = getNavigationManager().navigateBack()
 
     interface OnUserDetailFragmentInteractionListener : FragmentInteractionListener
 

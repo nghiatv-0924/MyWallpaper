@@ -14,8 +14,8 @@ class SearchRemoteDataSource(private val searchApi: SearchApi) : SearchDataSourc
         query: String,
         page: Int,
         perPage: Int,
-        collections: String,
-        orientation: String
+        collections: String?,
+        orientation: String?
     ): CoroutineResult<SearchPhotosResponse> =
         searchApi.searchPhotosAsync(query, page, perPage, collections, orientation).awaitResult()
 

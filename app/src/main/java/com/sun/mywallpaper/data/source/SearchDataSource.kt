@@ -12,8 +12,8 @@ interface SearchDataSource {
             query: String,
             page: Int,
             perPage: Int,
-            collections: String,
-            orientation: String
+            collections: String?,
+            orientation: String?
         ): CoroutineResult<SearchPhotosResponse>
 
         suspend fun searchUsers(

@@ -13,8 +13,8 @@ class SearchRepository(private val remote: SearchRemoteDataSource) : SearchDataS
         query: String,
         page: Int,
         perPage: Int,
-        collections: String,
-        orientation: String
+        collections: String?,
+        orientation: String?
     ): CoroutineResult<SearchPhotosResponse> =
         remote.searchPhotos(query, page, perPage, collections, orientation)
 

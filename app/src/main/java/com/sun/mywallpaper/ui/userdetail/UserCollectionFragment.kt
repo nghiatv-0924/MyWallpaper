@@ -17,6 +17,7 @@ import com.sun.mywallpaper.ui.collectiondetail.CollectionDetailFragment
 import com.sun.mywallpaper.util.Constants
 import com.sun.mywallpaper.viewmodel.CollectionViewModel
 import kotlinx.android.synthetic.main.fragment_collection.*
+import kotlinx.android.synthetic.main.no_results_layout.*
 import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
@@ -36,36 +37,8 @@ class UserCollectionFragment : BaseFragment<FragmentCollectionBinding, Collectio
     }
 
     override fun initComponents() {
-        recyclerViewCollection.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter =
-                userCollectionAdapter.also { it.setOnRecyclerItemClickListener(this@UserCollectionFragment) }
-            hasFixedSize()
-            addOnScrollListener(object : LastItemListener() {
-                override fun onLastItemVisible() {
-                    user?.let {
-                        viewModel.getUserCollections(
-                            it.username,
-                            ++page,
-                            Constants.DEFAULT_PER_PAGE
-                        )
-                    }
-                }
-            })
-        }
-        collectionSwipeRefreshLayout.apply {
-            user?.let {
-                setOnRefreshListener {
-                    page = 1
-                    viewModel.refreshUserCollections(
-                        it.username,
-                        page,
-                        Constants.DEFAULT_PER_PAGE
-                    )
-                    isRefreshing = false
-                }
-            }
-        }
+        initRecyclerView()
+        initSwipeRefreshLayout()
     }
 
     override fun setBindingVariables() {
@@ -75,13 +48,7 @@ class UserCollectionFragment : BaseFragment<FragmentCollectionBinding, Collectio
 
     override fun initData() {
         super.initData()
-        user?.let {
-            viewModel.refreshUserCollections(
-                it.username,
-                page,
-                Constants.DEFAULT_PER_PAGE
-            )
-        }
+        refreshUserCollections()
     }
 
     override fun observeData() {
@@ -97,6 +64,50 @@ class UserCollectionFragment : BaseFragment<FragmentCollectionBinding, Collectio
 
     override fun showItemDetail(item: Collection) {
         getNavigationManager().open(CollectionDetailFragment.newInstance(item))
+    }
+
+    private fun initRecyclerView() {
+        recyclerViewCollection.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter =
+                userCollectionAdapter.also { it.setOnRecyclerItemClickListener(this@UserCollectionFragment) }
+            hasFixedSize()
+            addOnScrollListener(object : LastItemListener() {
+                override fun onLastItemVisible() {
+                    getUserCollections()
+                }
+            })
+        }
+    }
+
+    private fun initSwipeRefreshLayout() {
+        collectionSwipeRefreshLayout.apply {
+            user?.let {
+                setOnRefreshListener {
+                    refreshUserCollections()
+                    isRefreshing = false
+                }
+            }
+        }
+    }
+
+    private fun refreshUserCollections() {
+        page = Constants.DEFAULT_PAGE
+        progressBar.visibility = View.VISIBLE
+        user?.let {
+            if (it.totalCollections == Constants.NO_VALUE) {
+                progressBar.visibility = View.GONE
+                noResultsView.visibility = View.VISIBLE
+            } else {
+                viewModel.refreshUserCollections(it.username, page, Constants.DEFAULT_PER_PAGE)
+            }
+        }
+    }
+
+    private fun getUserCollections() {
+        user?.let {
+            viewModel.getUserCollections(it.username, ++page, Constants.DEFAULT_PER_PAGE)
+        }
     }
 
     companion object {
