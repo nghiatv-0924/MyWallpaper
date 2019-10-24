@@ -71,7 +71,8 @@ class UserPhotoFragment : BaseFragment<FragmentPhotoBinding, PhotoViewModel>(),
             hasFixedSize()
             addOnScrollListener(object : LastItemListener() {
                 override fun onLastItemVisible() {
-                    getUserPhotos()
+                    if (loadMore)
+                        getUserPhotos()
                 }
             })
         }
@@ -88,6 +89,7 @@ class UserPhotoFragment : BaseFragment<FragmentPhotoBinding, PhotoViewModel>(),
 
     private fun refreshUserPhotos() {
         page = Constants.DEFAULT_PAGE
+        loadMore = true
         progressBar.visibility = View.VISIBLE
         user?.let {
             if (it.totalPhotos == Constants.NO_VALUE) {

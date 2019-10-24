@@ -17,7 +17,7 @@
         android:clipToPadding="false">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/app_bar"
+            android:id="@+id/appBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/ThemeOverlay.AppCompat.Light">
@@ -29,7 +29,7 @@
                 app:layout_scrollFlags="scroll|snap">
 
                 <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar"
+                    android:id="@+id/toolBarCollectionDetail"
                     style="@style/ToolbarTheme" />
 
                 <TextView

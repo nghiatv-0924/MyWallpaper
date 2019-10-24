@@ -22,7 +22,7 @@
             android:theme="@style/ThemeOverlay.AppCompat.Light">
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolBar"
+                android:id="@+id/toolBarHome"
                 style="@style/ToolbarTheme"
                 app:layout_scrollFlags="scroll|enterAlways|snap" />
 

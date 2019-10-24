@@ -39,6 +39,7 @@ class SearchPhotoFragment : BaseFragment<FragmentSearchPhotoBinding, SearchViewM
                 isRefreshing = false
             }
         }
+        noResultsView.visibility = View.VISIBLE
     }
 
     override fun setBindingVariables() {
@@ -50,9 +51,13 @@ class SearchPhotoFragment : BaseFragment<FragmentSearchPhotoBinding, SearchViewM
         super.observeData()
         viewModel.searchPhotoResponses.observe(viewLifecycleOwner, Observer {
             it?.let {
-                searchPhotoAdapter.updateData(it.results)
                 progressBar.visibility = View.GONE
-                recyclerViewSearchPhoto.visibility = View.VISIBLE
+                if (it.total == Constants.NO_VALUE) {
+                    noResultsView.visibility = View.VISIBLE
+                } else {
+                    searchPhotoAdapter.updateData(it.results)
+                    recyclerViewSearchPhoto.visibility = View.VISIBLE
+                }
             }
         })
     }

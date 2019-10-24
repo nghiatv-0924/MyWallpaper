@@ -71,7 +71,8 @@ class UserLikeFragment : BaseFragment<FragmentPhotoBinding, PhotoViewModel>(),
             hasFixedSize()
             addOnScrollListener(object : LastItemListener() {
                 override fun onLastItemVisible() {
-                    getUserLikes()
+                    if (loadMore)
+                        getUserLikes()
                 }
             })
         }
@@ -88,6 +89,7 @@ class UserLikeFragment : BaseFragment<FragmentPhotoBinding, PhotoViewModel>(),
 
     private fun refreshUserLikes() {
         page = Constants.DEFAULT_PAGE
+        loadMore = true
         progressBar.visibility = View.VISIBLE
         user?.let {
             if (it.totalLikes == Constants.NO_VALUE) {

@@ -1,9 +1,11 @@
 package com.sun.mywallpaper.ui.collectiondetail
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,10 +22,9 @@ import com.sun.mywallpaper.data.model.Photo
 import com.sun.mywallpaper.databinding.FragmentCollectionDetailBinding
 import com.sun.mywallpaper.di.KoinNames
 import com.sun.mywallpaper.ui.userdetail.UserDetailFragment
+import com.sun.mywallpaper.util.Constants
 import com.sun.mywallpaper.viewmodel.PhotoViewModel
 import kotlinx.android.synthetic.main.fragment_collection_detail.*
-import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.fragment_user_detail.*
 import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
@@ -39,7 +40,7 @@ class CollectionDetailFragment :
     private var listener: OnCollectionDetailFragmentInteractionListener? = null
     private val collectionPhotoAdapter: PhotoAdapter =
         get(named(KoinNames.COLLECTION_DETAIL_ADAPTER))
-    private var page = 1
+    private var page = Constants.DEFAULT_PAGE
     private val collection by lazy {
         arguments?.getParcelable<Collection>(COLLECTION_DETAIL)
     }
@@ -54,13 +55,98 @@ class CollectionDetailFragment :
     }
 
     override fun initComponents() {
+        initToolbar()
+        initRecyclerView()
+        initSwipeRefreshLayout()
+        initOther()
+    }
+
+    override fun setBindingVariables() {
+        super.setBindingVariables()
+        viewDataBinding.viewModel = this.viewModel
+    }
+
+    override fun initData() {
+        super.initData()
+        refreshCollectionPhotos()
+    }
+
+    override fun observeData() {
+        super.observeData()
+        viewModel.collectionPhotos.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                collectionPhotoAdapter.updateData(it)
+                progressBar.visibility = View.GONE
+                recyclerViewCollectionDetail.visibility = View.VISIBLE
+            }
+        })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+        inflater.inflate(R.menu.detail, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> onBackPressed()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() = getNavigationManager().navigateBack()
+
+    override fun showItemDetail(item: Photo) {
+    }
+
+    private fun initToolbar() {
         (activity as AppCompatActivity).apply {
-            setSupportActionBar(toolbar)
+            setSupportActionBar(toolBarCollectionDetail)
             supportActionBar?.title = collection?.title
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
         setHasOptionsMenu(true)
+    }
 
+    private fun initRecyclerView() {
+        recyclerViewCollectionDetail.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter =
+                collectionPhotoAdapter.also { it.setOnRecyclerItemClickListener(this@CollectionDetailFragment) }
+            hasFixedSize()
+            addOnScrollListener(object : LastItemListener() {
+                override fun onLastItemVisible() {
+                    if (loadMore)
+                        getCollectionPhotos()
+                }
+            })
+        }
+    }
+
+    private fun initSwipeRefreshLayout() {
+        collectionDetailSwipeRefreshLayout.apply {
+            setOnRefreshListener {
+                refreshCollectionPhotos()
+                isRefreshing = false
+            }
+        }
+    }
+
+    private fun refreshCollectionPhotos() {
+        page = Constants.DEFAULT_PAGE
+        loadMore = true
+        collection?.let {
+            viewModel.refreshCollectionPhotos(it.id, ++page, DEFAULT_PER_PAGE)
+        }
+    }
+
+    private fun getCollectionPhotos() {
+        collection?.let {
+            viewModel.getCollectionPhotos(it.id, ++page, DEFAULT_PER_PAGE)
+        }
+    }
+
+    private fun initOther() {
         collection?.let {
             Glide.with(this)
                 .load(it.user.profileImage.medium)
@@ -76,71 +162,6 @@ class CollectionDetailFragment :
                 getNavigationManager().open(UserDetailFragment.newInstance(it.user))
             }
         }
-
-        recyclerViewCollectionDetail.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter =
-                collectionPhotoAdapter.also { it.setOnRecyclerItemClickListener(this@CollectionDetailFragment) }
-            hasFixedSize()
-            addOnScrollListener(object : LastItemListener() {
-                override fun onLastItemVisible() {
-                    collection?.let {
-                        viewModel.getCollectionPhotos(it.id, ++page, DEFAULT_PER_PAGE)
-                        progressBar.visibility = View.VISIBLE
-                    }
-                }
-            })
-        }
-        collectionDetailSwipeRefreshLayout.apply {
-            setOnRefreshListener {
-                page = 1
-                collection?.let {
-                    viewModel.refreshCollectionPhotos(
-                        it.id,
-                        ++page,
-                        DEFAULT_PER_PAGE
-                    )
-                }
-                isRefreshing = false
-            }
-        }
-    }
-
-    override fun setBindingVariables() {
-        super.setBindingVariables()
-        viewDataBinding.viewModel = this.viewModel
-    }
-
-    override fun initData() {
-        super.initData()
-        collection?.let { viewModel.refreshCollectionPhotos(it.id, ++page, DEFAULT_PER_PAGE) }
-    }
-
-    override fun observeData() {
-        super.observeData()
-        viewModel.collectionPhotos.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                collectionPhotoAdapter.updateData(it)
-                progressBar.visibility = View.GONE
-                recyclerViewCollectionDetail.visibility = View.VISIBLE
-            }
-        })
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.detail, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> onBackPressed()
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    override fun onBackPressed() = getNavigationManager().navigateBack()
-
-    override fun showItemDetail(item: Photo) {
     }
 
     interface OnCollectionDetailFragmentInteractionListener : FragmentInteractionListener

@@ -32,25 +32,8 @@ class FeaturedFragment : BaseFragment<FragmentPhotoBinding, PhotoViewModel>(),
 
     override fun initComponents() {
         setHasOptionsMenu(true)
-
-        recyclerViewPhoto.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter =
-                featuredAdapter.also { it.setOnRecyclerItemClickListener(this@FeaturedFragment) }
-            hasFixedSize()
-            addOnScrollListener(object : LastItemListener() {
-                override fun onLastItemVisible() {
-                    viewModel.getFeaturedPhotos(++page, Constants.DEFAULT_PER_PAGE, SORT_BY_LATEST)
-                }
-            })
-        }
-        photoSwipeRefreshLayout.apply {
-            setOnRefreshListener {
-                page = 1
-                viewModel.refreshFeaturedPhotos(page, Constants.DEFAULT_PER_PAGE, SORT_BY_LATEST)
-                isRefreshing = false
-            }
-        }
+        initRecyclerView()
+        initSwipeRefreshLayout()
     }
 
     override fun setBindingVariables() {
@@ -60,7 +43,7 @@ class FeaturedFragment : BaseFragment<FragmentPhotoBinding, PhotoViewModel>(),
 
     override fun initData() {
         super.initData()
-        viewModel.getFeaturedPhotos(page, Constants.DEFAULT_PER_PAGE, SORT_BY_LATEST)
+        refreshFeaturedPhotos()
     }
 
     override fun observeData() {
@@ -79,6 +62,40 @@ class FeaturedFragment : BaseFragment<FragmentPhotoBinding, PhotoViewModel>(),
     }
 
     override fun showItemDetail(item: Photo) {
+    }
+
+    private fun initRecyclerView() {
+        recyclerViewPhoto.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter =
+                featuredAdapter.also { it.setOnRecyclerItemClickListener(this@FeaturedFragment) }
+            hasFixedSize()
+            addOnScrollListener(object : LastItemListener() {
+                override fun onLastItemVisible() {
+                    if (loadMore)
+                        getFeaturedPhotos()
+                }
+            })
+        }
+    }
+
+    private fun initSwipeRefreshLayout() {
+        photoSwipeRefreshLayout.apply {
+            setOnRefreshListener {
+                refreshFeaturedPhotos()
+                isRefreshing = false
+            }
+        }
+    }
+
+    private fun refreshFeaturedPhotos() {
+        page = Constants.DEFAULT_PAGE
+        loadMore = true
+        viewModel.refreshFeaturedPhotos(page, Constants.DEFAULT_PER_PAGE, SORT_BY_LATEST)
+    }
+
+    private fun getFeaturedPhotos() {
+        viewModel.getFeaturedPhotos(++page, Constants.DEFAULT_PER_PAGE, SORT_BY_LATEST)
     }
 
     companion object {
