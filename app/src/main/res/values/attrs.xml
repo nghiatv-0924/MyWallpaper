@@ -34,5 +34,6 @@
         <attr name="errorIcon" format="reference"/>
         <attr name="backIcon" format="reference"/>
         <attr name="locationIcon" format="reference"/>
+        <attr name="closeIcon" format="reference"/>
     </declare-styleable>
 </resources>

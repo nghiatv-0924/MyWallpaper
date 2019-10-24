@@ -3,12 +3,14 @@ package com.sun.mywallpaper.ui.home
 import android.content.Context
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.sun.mywallpaper.R
 import com.sun.mywallpaper.adapter.PagerAdapter
 import com.sun.mywallpaper.base.BaseFragment
 import com.sun.mywallpaper.base.FragmentInteractionListener
 import com.sun.mywallpaper.databinding.FragmentHomeBinding
+import com.sun.mywallpaper.ui.search.SearchFragment
 import com.sun.mywallpaper.util.Utils
 import com.sun.mywallpaper.viewmodel.HomeViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -36,14 +38,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         (activity as AppCompatActivity).apply {
             setSupportActionBar(toolBar)
             supportActionBar?.setTitle(R.string.app_name)
+            Utils.isStoragePermissionGranted(this)
         }
         setHasOptionsMenu(true)
 
-        activity?.let { activity ->
-            (activity as AppCompatActivity).setSupportActionBar(toolBar)
-            activity.setTitle(getString(R.string.app_name))
-            Utils.isStoragePermissionGranted(activity)
-        }
         pagerAdapter = PagerAdapter(childFragmentManager)
         pagerAdapter.apply {
             addFragment(NewFragment.newInstance(), getString(R.string.drawer_new))
@@ -61,6 +59,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.home, menu)
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean =
+        when (item.itemId) {
+            R.id.actionSearch -> {
+                getNavigationManager().open(SearchFragment.newInstance())
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
 
     interface OnHomeFragmentInteractionListener : FragmentInteractionListener
 
