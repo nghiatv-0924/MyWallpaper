@@ -9,6 +9,7 @@
         <attr name="secondaryTextColor" format="color" />
         <attr name="fabColor" format="color" />
         <attr name="toolbarPopupTheme" format="reference" />
+        <attr name="menuBackgroundColor" format="color"/>
     </declare-styleable>
 
     <declare-styleable name="ThemeDrawable">
@@ -35,5 +36,8 @@
         <attr name="backIcon" format="reference"/>
         <attr name="locationIcon" format="reference"/>
         <attr name="closeIcon" format="reference"/>
+        <attr name="calendarIcon" format="reference"/>
+        <attr name="downloadIcon" format="reference"/>
+        <attr name="paletteIcon" format="reference"/>
     </declare-styleable>
 </resources>

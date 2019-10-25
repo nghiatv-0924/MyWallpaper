@@ -5,4 +5,5 @@
     <color name="colorAccentLight">#1a1a1a</color>
     <color name="colorTextLight">#000000</color>
     <color name="colorTextSecondaryLight">#96000000</color>
+    <color name="menuBackgroundDark">#cc000000</color>
 </resources>

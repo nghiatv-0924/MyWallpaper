@@ -9,6 +9,7 @@ import com.sun.mywallpaper.base.OnRecyclerItemClickListener
 import com.sun.mywallpaper.data.model.Photo
 import com.sun.mywallpaper.databinding.FragmentSearchPhotoBinding
 import com.sun.mywallpaper.di.KoinNames
+import com.sun.mywallpaper.ui.photodetail.PhotoDetailFragment
 import com.sun.mywallpaper.util.Constants
 import com.sun.mywallpaper.viewmodel.SearchViewModel
 import kotlinx.android.synthetic.main.fragment_search_photo.*
@@ -63,6 +64,7 @@ class SearchPhotoFragment : BaseFragment<FragmentSearchPhotoBinding, SearchViewM
     }
 
     override fun showItemDetail(item: Photo) {
+        getNavigationManager().open(PhotoDetailFragment.newInstance(item))
     }
 
     fun setOrientation(query: String, spinnerPosition: Int) {
