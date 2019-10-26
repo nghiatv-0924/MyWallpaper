@@ -16,6 +16,7 @@ import com.sun.mywallpaper.base.BaseFragment
 import com.sun.mywallpaper.base.FragmentInteractionListener
 import com.sun.mywallpaper.data.model.Photo
 import com.sun.mywallpaper.databinding.FragmentPhotoDetailBinding
+import com.sun.mywallpaper.ui.editphoto.PhotoEditorFragment
 import com.sun.mywallpaper.ui.userdetail.UserDetailFragment
 import com.sun.mywallpaper.util.Constants
 import com.sun.mywallpaper.viewmodel.PhotoViewModel
@@ -66,15 +67,16 @@ class PhotoDetailFragment : BaseFragment<FragmentPhotoDetailBinding, PhotoViewMo
 
     override fun onClick(view: View?) {
         when (view?.id) {
-            R.id.imagePhoto -> {
+            R.id.imagePhoto -> photo?.let {
+                getNavigationManager().open(PhotoEditorFragment.newInstance(it))
             }
 
             R.id.imageUser -> photo?.let {
-                UserDetailFragment.newInstance(it.user)
+                getNavigationManager().open(UserDetailFragment.newInstance(it.user))
             }
 
             R.id.textUserName -> photo?.let {
-                UserDetailFragment.newInstance(it.user)
+                getNavigationManager().open(UserDetailFragment.newInstance(it.user))
             }
 
             R.id.fabDownload -> {
@@ -94,6 +96,8 @@ class PhotoDetailFragment : BaseFragment<FragmentPhotoDetailBinding, PhotoViewMo
             }
         }
     }
+
+    override fun onBackPressed() = getNavigationManager().navigateBack()
 
     private fun initToolbar() {
         (activity as AppCompatActivity).apply {
@@ -135,6 +139,7 @@ class PhotoDetailFragment : BaseFragment<FragmentPhotoDetailBinding, PhotoViewMo
         textPhotoColor.text = photo?.color
         imagePhotoColor.setBackgroundColor(Color.parseColor(photo?.color))
 
+        imagePhoto.setOnClickListener(this)
         imageUser.setOnClickListener(this)
         textUserName.setOnClickListener(this)
     }
