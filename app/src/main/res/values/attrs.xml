@@ -10,6 +10,7 @@
         <attr name="fabColor" format="color" />
         <attr name="toolbarPopupTheme" format="reference" />
         <attr name="menuBackgroundColor" format="color"/>
+        <attr name="editBackgroundColor" format="color"/>
     </declare-styleable>
 
     <declare-styleable name="ThemeDrawable">
