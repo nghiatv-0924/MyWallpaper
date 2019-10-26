@@ -40,4 +40,7 @@ object KoinNames {
     const val SEARCH_PHOTO_ADAPTER = "name_search_photo_adapter"
     const val SEARCH_COLLECTION_ADAPTER = "name_search_collection_adapter"
     const val SEARCH_USER_ADAPTER = "name_search_user_adapter"
+    const val FILTER_ADAPTER = "name_filter_adapter"
+    const val COLOR_PICKER_ADAPTER = "name_color_picker_adapter"
+    const val EMOJI_ADAPTER = "name_emoji_adapter"
 }
