@@ -8,6 +8,7 @@
         <item name="secondaryTextColor">@color/colorTextSecondaryLight</item>
         <item name="fabColor">@color/colorAccentLight</item>
         <item name="menuBackgroundColor">@color/menuBackgroundDark</item>
+        <item name="editBackgroundColor">@color/editBackgroundColorLight</item>
         <item name="toolbarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
         <item name="actionBarTheme">@style/ActionBarThemeLight</item>
         <item name="searchIcon">@drawable/ic_search_black_24dp</item>

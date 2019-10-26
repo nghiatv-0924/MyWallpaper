@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#B3000000">
+
+    <TextView
+        android:id="@+id/textDone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="@dimen/dp_24"
+        android:background="@android:color/transparent"
+        android:padding="@dimen/dp_10"
+        android:text="@string/done"
+        android:textColor="@color/colorTextDark"
+        android:textSize="@dimen/sp_16" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/relativeLayoutAddTextColorPicker"
+        android:layout_below="@+id/textDone"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:importantForAutofill="no"
+        android:inputType="textMultiLine"
+        android:textSize="@dimen/sp_36"
+        tools:ignore="LabelFor" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayoutAddTextColorPicker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewTextColorPicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_color" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
