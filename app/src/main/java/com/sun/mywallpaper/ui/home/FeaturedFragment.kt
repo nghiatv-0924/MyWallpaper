@@ -2,6 +2,7 @@ package com.sun.mywallpaper.ui.home
 
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,6 +31,7 @@ class FeaturedFragment : BaseFragment<FragmentPhotoBinding, PhotoViewModel>(),
 
     private val featuredAdapter: PhotoAdapter = get(named(KoinNames.FEATURED_ADAPTER))
     private var page = Constants.DEFAULT_PAGE
+    private var orderBy = ORDER_BY_LATEST
 
     override fun initComponents() {
         setHasOptionsMenu(true)
@@ -62,8 +64,35 @@ class FeaturedFragment : BaseFragment<FragmentPhotoBinding, PhotoViewModel>(),
         inflater.inflate(R.menu.featured_photo, menu)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem) =
+        when (item.itemId) {
+            R.id.menuItemFeaturedLatest -> {
+                sortOrderFeaturedPhoto(ORDER_BY_LATEST)
+                true
+            }
+
+            R.id.menuItemFeaturedOldest -> {
+                sortOrderFeaturedPhoto(ORDER_BY_OLDEST)
+                true
+            }
+
+            R.id.menuItemFeaturedPopular -> {
+                sortOrderFeaturedPhoto(ORDER_BY_POPULAR)
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
+
     override fun showItemDetail(item: Photo) {
         getNavigationManager().open(PhotoDetailFragment.newInstance(item))
+    }
+
+    private fun sortOrderFeaturedPhoto(orderBy: String) {
+        if (this.orderBy != orderBy) {
+            this.orderBy = orderBy
+            refreshFeaturedPhotos()
+        }
     }
 
     private fun initRecyclerView() {
@@ -93,17 +122,17 @@ class FeaturedFragment : BaseFragment<FragmentPhotoBinding, PhotoViewModel>(),
     private fun refreshFeaturedPhotos() {
         page = Constants.DEFAULT_PAGE
         loadMore = true
-        viewModel.refreshFeaturedPhotos(page, Constants.DEFAULT_PER_PAGE, SORT_BY_LATEST)
+        viewModel.refreshFeaturedPhotos(page, Constants.DEFAULT_PER_PAGE, orderBy)
     }
 
     private fun getFeaturedPhotos() {
-        viewModel.getFeaturedPhotos(++page, Constants.DEFAULT_PER_PAGE, SORT_BY_LATEST)
+        viewModel.getFeaturedPhotos(++page, Constants.DEFAULT_PER_PAGE, orderBy)
     }
 
     companion object {
-        private const val SORT_BY_LATEST = "latest"
-        private const val SORT_BY_OLDEST = "oldest"
-        private const val SORT_BY_POPULAR = "popular"
+        private const val ORDER_BY_LATEST = "latest"
+        private const val ORDER_BY_OLDEST = "oldest"
+        private const val ORDER_BY_POPULAR = "popular"
 
         @JvmStatic
         fun newInstance() = FeaturedFragment()

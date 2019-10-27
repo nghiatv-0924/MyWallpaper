@@ -1,10 +1,15 @@
 package com.sun.mywallpaper.ui.home
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.os.AsyncTask
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.sun.mywallpaper.R
 import com.sun.mywallpaper.adapter.PagerAdapter
 import com.sun.mywallpaper.base.BaseFragment
@@ -15,15 +20,18 @@ import com.sun.mywallpaper.util.Utils
 import com.sun.mywallpaper.viewmodel.HomeViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.io.File
 
-class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
+@SuppressLint("StaticFieldLeak")
+class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), View.OnClickListener {
 
     override val layoutResource: Int
         get() = R.layout.fragment_home
     override val viewModel: HomeViewModel by viewModel()
-    private var listener: OnHomeFragmentInteractionListener? = null
 
+    private var listener: OnHomeFragmentInteractionListener? = null
     private lateinit var pagerAdapter: PagerAdapter
+    private lateinit var clearCache: AsyncTask<Unit, Unit, Unit>
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -34,9 +42,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        setCacheSizeLabel()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        clearCache.cancel(true)
+    }
+
     override fun initComponents() {
         initToolbar()
         initViewPager()
+        initFab()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -53,6 +72,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
             else -> super.onOptionsItemSelected(item)
         }
+
+    override fun onClick(view: View?) {
+        when (view?.id) {
+            R.id.fabSetting -> {
+                fabMenu.close(true)
+            }
+
+            R.id.fabClearCache -> {
+                fabMenu.close(true)
+                context?.let {
+                    clearCache = ClearCache(it).execute()
+                    fabClearCache.labelText = getString(R.string.drawer_clear_cache, "0")
+                }
+            }
+        }
+    }
 
     private fun initToolbar() {
         (activity as AppCompatActivity).apply {
@@ -76,6 +111,50 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         }
 
         tabLayout.setupWithViewPager(viewPager)
+    }
+
+    private fun initFab() {
+        fabMenu.setClosedOnTouchOutside(true)
+        fabSetting.setOnClickListener(this)
+        fabClearCache.setOnClickListener(this)
+    }
+
+    private fun setCacheSizeLabel() {
+        context?.run {
+            Glide.getPhotoCacheDir(this)?.let {
+                fabClearCache.labelText =
+                    getString(R.string.drawer_clear_cache, dirSize(it).toString())
+            }
+        }
+    }
+
+    private fun dirSize(dir: File): Long {
+        if (dir.exists()) {
+            var result: Long = 0
+            val files = dir.listFiles()
+            files?.let {
+                for (item in it) {
+                    result += if (item.isDirectory) {
+                        dirSize(item)
+                    } else {
+                        item.length()
+                    }
+                }
+                return result / (1024 * 1024)
+            }
+        }
+        return 0
+    }
+
+    class ClearCache(private val context: Context) : AsyncTask<Unit, Unit, Unit>() {
+
+        override fun doInBackground(vararg params: Unit?) {
+            Glide.get(context).clearDiskCache()
+        }
+
+        override fun onPostExecute(result: Unit?) {
+            Toast.makeText(context, "Cache cleared", Toast.LENGTH_SHORT).show()
+        }
     }
 
     interface OnHomeFragmentInteractionListener : FragmentInteractionListener

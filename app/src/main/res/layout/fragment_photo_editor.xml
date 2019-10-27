@@ -66,7 +66,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/dp_8"
-            app:layout_constraintBottom_toTopOf="@+id/recyclerViewFilter"
+            app:layout_constraintBottom_toTopOf="@+id/buttonBrush"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/buttonBack" />
@@ -95,7 +95,7 @@
             android:padding="8dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_brush_white_24dp"
-            app:layout_constraintBottom_toTopOf="@+id/buttonSetAsWallpaper"
+            app:layout_constraintBottom_toTopOf="@+id/buttonDownload"
             app:layout_constraintEnd_toStartOf="@id/buttonAddText"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -109,7 +109,7 @@
             android:padding="8dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_text_fields_white_24dp"
-            app:layout_constraintBottom_toTopOf="@+id/buttonSetAsWallpaper"
+            app:layout_constraintBottom_toTopOf="@+id/buttonDownload"
             app:layout_constraintEnd_toStartOf="@id/buttonEraser"
             app:layout_constraintStart_toEndOf="@id/buttonBrush" />
 
@@ -123,7 +123,7 @@
             android:padding="8dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_eraser_white_24dp"
-            app:layout_constraintBottom_toTopOf="@+id/buttonSetAsWallpaper"
+            app:layout_constraintBottom_toTopOf="@+id/buttonDownload"
             app:layout_constraintEnd_toStartOf="@id/buttonFilter"
             app:layout_constraintStart_toEndOf="@id/buttonAddText" />
 
@@ -137,7 +137,7 @@
             android:padding="8dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_photo_filter_white_24dp"
-            app:layout_constraintBottom_toTopOf="@+id/buttonSetAsWallpaper"
+            app:layout_constraintBottom_toTopOf="@+id/buttonDownload"
             app:layout_constraintEnd_toStartOf="@id/buttonEmoji"
             app:layout_constraintStart_toEndOf="@id/buttonEraser" />
 
@@ -151,41 +151,28 @@
             android:padding="8dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_tag_faces_white_24dp"
-            app:layout_constraintBottom_toTopOf="@+id/buttonSetAsWallpaper"
+            app:layout_constraintBottom_toTopOf="@+id/buttonDownload"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/buttonFilter" />
-
-        <ImageButton
-            android:id="@+id/buttonSetAsWallpaper"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dp_8"
-            android:adjustViewBounds="true"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/app_name"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_wallpaper_white_24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
 
         <ImageButton
             android:id="@+id/buttonDownload"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dp_8"
+            android:layout_margin="@dimen/dp_16"
             android:adjustViewBounds="true"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/app_name"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_file_download_white_24dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/buttonSetAsWallpaper" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/textCurrentTool"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dp_8"
+            android:layout_margin="@dimen/dp_16"
             android:text="@string/drawer_photo_editor"
             android:textColor="@color/colorTextDark"
             android:textSize="@dimen/sp_16"
@@ -197,7 +184,7 @@
             android:id="@+id/buttonUndo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dp_8"
+            android:layout_margin="@dimen/dp_16"
             android:adjustViewBounds="true"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/app_name"
@@ -210,7 +197,7 @@
             android:id="@+id/buttonRedo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dp_8"
+            android:layout_margin="@dimen/dp_16"
             android:adjustViewBounds="true"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/app_name"

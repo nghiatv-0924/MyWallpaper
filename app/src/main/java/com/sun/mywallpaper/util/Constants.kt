@@ -7,6 +7,8 @@ object Constants {
     const val UNAVAILABLE_VALUE = -1
     const val NO_VALUE = 0
     const val DATE_FORMAT = "dd/MM/yyyy"
+    const val DOWNLOAD_PHOTO_FORMAT = ".jpg"
+    const val DOWNLOAD_PATH = "/Pictures/MyWallpaper/"
     const val NOTIFICATION_CHANNEL_ID = "resplash_notification_channel_id"
     const val MESSAGE_DATA_NOT_FOUND = "Data not found in data source"
     const val DEFAULT_PAGE = 1

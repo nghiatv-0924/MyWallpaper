@@ -129,9 +129,6 @@ class PhotoEditorFragment : BaseFragment<FragmentPhotoEditorBinding, PhotoViewMo
             R.id.buttonDownload -> {
             }
 
-            R.id.buttonSetAsWallpaper -> {
-            }
-
             R.id.buttonBrush -> {
                 photoEditor?.setBrushDrawingMode(true)
                 textCurrentTool.text = getString(R.string.edit_tool_brush)
@@ -196,7 +193,6 @@ class PhotoEditorFragment : BaseFragment<FragmentPhotoEditorBinding, PhotoViewMo
         buttonGallery.setOnClickListener(this)
         buttonCamera.setOnClickListener(this)
         buttonDownload.setOnClickListener(this)
-        buttonSetAsWallpaper.setOnClickListener(this)
         buttonBrush.setOnClickListener(this)
         buttonAddText.setOnClickListener(this)
         buttonEraser.setOnClickListener(this)

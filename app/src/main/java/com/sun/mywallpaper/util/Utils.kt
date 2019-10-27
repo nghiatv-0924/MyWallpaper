@@ -3,13 +3,16 @@ package com.sun.mywallpaper.util
 import android.Manifest
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Build
 import androidx.core.app.ActivityCompat
 import androidx.core.content.res.ResourcesCompat
 import com.sun.mywallpaper.R
+import com.sun.mywallpaper.data.api.ApiConstants
 import ja.burhanrashid52.photoeditor.PhotoFilter
 import java.io.IOException
 
@@ -78,6 +81,16 @@ object Utils {
     } catch (e: IOException) {
         e.printStackTrace()
         null
+    }
+
+    fun viewIntent(url: String?) = Intent(
+        Intent.ACTION_VIEW,
+        Uri.parse(url + ApiConstants.UNSPLASH_UTM_PARAMETERS)
+    )
+
+    fun shareIntent(url: String?) = Intent(Intent.ACTION_SEND).apply {
+        type = "text/plain"
+        putExtra(Intent.EXTRA_TEXT, url + ApiConstants.UNSPLASH_UTM_PARAMETERS)
     }
 
     private fun checkSelfPermission(activity: Activity) = ActivityCompat.checkSelfPermission(

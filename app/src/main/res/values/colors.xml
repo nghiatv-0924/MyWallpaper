@@ -7,7 +7,8 @@
     <color name="colorTextSecondaryLight">#96000000</color>
     <color name="menuBackgroundDark">#cc000000</color>
     <color name="editBackgroundColorLight">#212121</color>
-
+    <color name="progressBarColorLight">#000000</color>
+    <color name="addTextBackgroundLight">#B3000000</color>
     <color name="colorTextDark">#ffffff</color>
 
     <color name="black_color_picker">#000000</color>
