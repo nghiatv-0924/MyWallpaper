@@ -115,4 +115,13 @@ class PhotoViewModel(private val photoRepository: PhotoRepository) : BaseViewMod
         }
         _userLikes.value = userLikeList
     }
+
+    fun reportDownload(id: String) = launch {
+        when (val result = photoRepository.reportDownload(id)) {
+            is CoroutineResult.Success -> {
+            }
+            is CoroutineResult.Error -> {
+            }
+        }
+    }
 }

@@ -24,6 +24,7 @@ import com.sun.mywallpaper.di.KoinNames
 import com.sun.mywallpaper.ui.photodetail.PhotoDetailFragment
 import com.sun.mywallpaper.ui.userdetail.UserDetailFragment
 import com.sun.mywallpaper.util.Constants
+import com.sun.mywallpaper.util.Utils
 import com.sun.mywallpaper.viewmodel.PhotoViewModel
 import kotlinx.android.synthetic.main.fragment_collection_detail.*
 import org.koin.android.ext.android.get
@@ -88,12 +89,25 @@ class CollectionDetailFragment :
         inflater.inflate(R.menu.detail, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem) =
         when (item.itemId) {
-            android.R.id.home -> onBackPressed()
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+
+            R.id.actionViewOnUnsplash -> {
+                startActivity(Utils.viewIntent(collection?.links?.html))
+                true
+            }
+
+            R.id.actionShare -> {
+                startActivity(Utils.shareIntent(collection?.links?.html))
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
-    }
 
     override fun onBackPressed() = getNavigationManager().navigateBack()
 

@@ -8,6 +8,8 @@
     <string name="drawer_likes">Likes</string>
     <string name="drawer_users">Users</string>
     <string name="drawer_photo_editor">Photo Editor</string>
+    <string name="drawer_clear_cache">Clear Cache (%1$s MB)</string>
+    <string name="drawer_setting">Setting</string>
 
     <string name="menu_search">Search</string>
     <string name="menu_sort">Sort by</string>
@@ -15,7 +17,6 @@
     <string name="menu_item_oldest">Oldest</string>
     <string name="menu_item_popular">Popular</string>
     <string name="menu_item_all">All</string>
-    <string name="menu_item_curated">Curated</string>
     <string name="menu_item_featured">Featured</string>
 
     <string name="error">Error</string>
@@ -50,11 +51,9 @@
     <string name="done">Done</string>
     <string name="opacity">Opacity</string>
     <string name="brush">Brush</string>
-    <string name="close">Close</string>
     <string name="edit_tool_brush">Brush</string>
     <string name="edit_tool_add_text">Add text</string>
     <string name="edit_tool_eraser">Eraser</string>
     <string name="edit_tool_filter">Filter</string>
     <string name="edit_tool_emoji">Emoji</string>
-    <string name="edit_tool_sticker">Sticker</string>
 </resources>

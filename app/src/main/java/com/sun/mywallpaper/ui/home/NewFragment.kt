@@ -2,6 +2,7 @@ package com.sun.mywallpaper.ui.home
 
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,6 +31,7 @@ class NewFragment : BaseFragment<FragmentPhotoBinding, PhotoViewModel>(),
 
     private val newAdapter: PhotoAdapter = get(named(KoinNames.NEW_ADAPTER))
     private var page = Constants.DEFAULT_PAGE
+    private var orderBy = ORDER_BY_LATEST
 
     override fun initComponents() {
         setHasOptionsMenu(true)
@@ -62,8 +64,35 @@ class NewFragment : BaseFragment<FragmentPhotoBinding, PhotoViewModel>(),
         inflater.inflate(R.menu.new_photo, menu)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem) =
+        when (item.itemId) {
+            R.id.menuItemNewLatest -> {
+                sortOrderNewPhoto(ORDER_BY_LATEST)
+                true
+            }
+
+            R.id.menuItemNewOldest -> {
+                sortOrderNewPhoto(ORDER_BY_OLDEST)
+                true
+            }
+
+            R.id.menuItemNewPopular -> {
+                sortOrderNewPhoto(ORDER_BY_POPULAR)
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
+
     override fun showItemDetail(item: Photo) {
         getNavigationManager().open(PhotoDetailFragment.newInstance(item))
+    }
+
+    private fun sortOrderNewPhoto(orderBy: String) {
+        if (this.orderBy != orderBy) {
+            this.orderBy = orderBy
+            refreshNewPhotos()
+        }
     }
 
     private fun initRecyclerView() {
@@ -92,17 +121,17 @@ class NewFragment : BaseFragment<FragmentPhotoBinding, PhotoViewModel>(),
     private fun refreshNewPhotos() {
         page = Constants.DEFAULT_PAGE
         loadMore = true
-        viewModel.refreshNewPhotos(page, Constants.DEFAULT_PER_PAGE, SORT_BY_LATEST)
+        viewModel.refreshNewPhotos(page, Constants.DEFAULT_PER_PAGE, orderBy)
     }
 
     private fun getNewPhotos() {
-        viewModel.getNewPhotos(++page, Constants.DEFAULT_PER_PAGE, SORT_BY_LATEST)
+        viewModel.getNewPhotos(++page, Constants.DEFAULT_PER_PAGE, orderBy)
     }
 
     companion object {
-        private const val SORT_BY_LATEST = "latest"
-        private const val SORT_BY_OLDEST = "oldest"
-        private const val SORT_BY_POPULAR = "popular"
+        private const val ORDER_BY_LATEST = "latest"
+        private const val ORDER_BY_OLDEST = "oldest"
+        private const val ORDER_BY_POPULAR = "popular"
 
         @JvmStatic
         fun newInstance() = NewFragment()

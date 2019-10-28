@@ -2,6 +2,7 @@ package com.sun.mywallpaper.ui.home
 
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,6 +31,7 @@ class CollectionFragment : BaseFragment<FragmentCollectionBinding, CollectionVie
 
     private val collectionAdapter: CollectionAdapter = get(named(KoinNames.COLLECTION_ADAPTER))
     private var page = Constants.DEFAULT_PAGE
+    private var orderBy = ORDER_BY_ALL
 
     override fun initComponents() {
         setHasOptionsMenu(true)
@@ -62,8 +64,30 @@ class CollectionFragment : BaseFragment<FragmentCollectionBinding, CollectionVie
         inflater.inflate(R.menu.collection, menu)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem) =
+        when (item.itemId) {
+            R.id.menuItemCollectionAll -> {
+                sortOrderCollection(ORDER_BY_ALL)
+                true
+            }
+
+            R.id.menuItemCollectionFeatured -> {
+                sortOrderCollection(ORDER_BY_FEATURED)
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
+
     override fun showItemDetail(item: Collection) {
         getNavigationManager().open(CollectionDetailFragment.newInstance(item))
+    }
+
+    private fun sortOrderCollection(orderBy: String) {
+        if (this.orderBy != orderBy) {
+            this.orderBy = orderBy
+            refreshCollections()
+        }
     }
 
     private fun initRecyclerView() {
@@ -93,14 +117,17 @@ class CollectionFragment : BaseFragment<FragmentCollectionBinding, CollectionVie
     private fun refreshCollections() {
         page = Constants.DEFAULT_PAGE
         loadMore = true
-        viewModel.refreshCollections(page, Constants.DEFAULT_PER_PAGE)
+        viewModel.refreshCollections(page, Constants.DEFAULT_PER_PAGE, orderBy)
     }
 
     private fun getCollections() {
-        viewModel.getCollections(++page, Constants.DEFAULT_PER_PAGE)
+        viewModel.getCollections(++page, Constants.DEFAULT_PER_PAGE, orderBy)
     }
 
     companion object {
+        const val ORDER_BY_ALL = "all"
+        const val ORDER_BY_FEATURED = "featured"
+
         @JvmStatic
         fun newInstance() = CollectionFragment()
     }

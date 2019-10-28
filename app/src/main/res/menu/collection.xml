@@ -12,15 +12,12 @@
         <menu>
             <group android:checkableBehavior="none">
                 <item
-                    android:id="@+id/menuItemAll"
+                    android:id="@+id/menuItemCollectionAll"
                     android:icon="?attr/mountainIcon"
                     android:title="@string/menu_item_all" />
+
                 <item
-                    android:id="@+id/menuItemCurated"
-                    android:icon="?attr/heartIcon"
-                    android:title="@string/menu_item_curated" />
-                <item
-                    android:id="@+id/menuItemFeatured"
+                    android:id="@+id/menuItemCollectionFeatured"
                     android:icon="?attr/starCircleIcon"
                     android:title="@string/menu_item_featured" />
             </group>

@@ -14,6 +14,7 @@ import com.sun.mywallpaper.base.BaseFragment
 import com.sun.mywallpaper.base.FragmentInteractionListener
 import com.sun.mywallpaper.data.model.User
 import com.sun.mywallpaper.databinding.FragmentUserDetailBinding
+import com.sun.mywallpaper.util.Utils
 import com.sun.mywallpaper.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.fragment_user_detail.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -49,12 +50,25 @@ class UserDetailFragment : BaseFragment<FragmentUserDetailBinding, UserViewModel
         inflater.inflate(R.menu.detail, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean =
         when (item.itemId) {
-            android.R.id.home -> onBackPressed()
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+
+            R.id.actionViewOnUnsplash -> {
+                startActivity(Utils.viewIntent(user?.links?.html))
+                true
+            }
+
+            R.id.actionShare -> {
+                startActivity(Utils.shareIntent(user?.links?.html))
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
-    }
 
     override fun onBackPressed() = getNavigationManager().navigateBack()
 
